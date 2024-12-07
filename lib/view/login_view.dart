@@ -22,7 +22,7 @@ class _LoginViewState extends State<LoginView> {
     final theme = Theme.of(context);
     return Scaffold(
         body: SafeArea(
-      child: Padding(
+      child: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
