@@ -1,10 +1,14 @@
+import 'package:flutter/material.dart';
 import 'package:ride_on/model/tour_model/tour_model.dart';
 import 'package:ride_on/repository/storageRepository/api_storage_repo.dart';
 
-class HomeController {
-  final repo = ApiStorageRepo();
+class HomeController extends ChangeNotifier {
+  HomeController({required this.storageRepository});
+
+  final ApiStorageRepo storageRepository;
+
   Future<TourModel> fetchTourList() async {
-    var data = await repo.fetchTourBooking();
+    var data = await storageRepository.fetchTourBooking();
     return data;
   }
 }

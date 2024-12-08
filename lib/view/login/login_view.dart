@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:provider/provider.dart';
 import 'package:ride_on/model/user.dart';
 import 'package:ride_on/res/components/custom_button.dart';
 import 'package:ride_on/res/components/custom_textformfield.dart';
@@ -20,6 +21,7 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final loginController = Provider.of<AuthController>(context, listen: false);
     return Scaffold(
         body: SafeArea(
       child: SingleChildScrollView(
@@ -73,21 +75,24 @@ class _LoginViewState extends State<LoginView> {
                 labelText: "Password",
               ),
               const Gap(40),
-              SizedBox(
-                width: double.infinity,
-                height: 50,
-                child: CustomButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      AuthController().login(
-                          context,
-                          User(
-                            userId: useridController.text.trim(),
-                            pswd: passwordController.text.trim(),
-                          ));
-                    }
-                  },
-                  btnText: "Login",
+              Consumer<AuthController>(
+                builder: (context, value, child) => SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: CustomButton(
+                    isloading: value.isLoading,
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        loginController.login(
+                            context,
+                            User(
+                              userId: useridController.text.trim(),
+                              pswd: passwordController.text.trim(),
+                            ));
+                      }
+                    },
+                    btnText: "Login",
+                  ),
                 ),
               )
             ],

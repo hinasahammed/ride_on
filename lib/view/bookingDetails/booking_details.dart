@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:ride_on/model/tour_model/datum.dart';
+import 'package:ride_on/res/components/custom_button.dart';
+import 'package:ride_on/view/bookingDetails/widget/items.dart';
 
 class BookingDetails extends StatelessWidget {
   const BookingDetails({super.key, required this.tourModel});
@@ -13,12 +15,14 @@ class BookingDetails extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Details"),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            Card(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Card(
               margin: const EdgeInsets.all(0),
+              elevation: 5,
               child: Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(8),
@@ -28,119 +32,106 @@ class BookingDetails extends StatelessWidget {
                   children: [
                     Text(
                       tourModel.name ?? '',
-                      style: theme.textTheme.bodyLarge!.copyWith(
+                      style: theme.textTheme.titleLarge!.copyWith(
                         color: theme.colorScheme.onSurface,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const Gap(5),
+                    const Gap(8),
                     Text(
                       "₹${tourModel.amount}",
                       style: theme.textTheme.titleLarge!.copyWith(
                         color: theme.colorScheme.primary,
-                        fontWeight: FontWeight.w700,
+                        fontWeight: FontWeight.bold,
                       ),
+                    ),
+                    const Gap(16),
+                    const Divider(),
+                    Items(
+                      icon: Icons.folder,
+                      title: "File No:",
+                      value: tourModel.fileNo ?? '',
+                    ),
+                    Items(
+                      icon: Icons.directions_bus,
+                      title: "Vehicle:",
+                      value: tourModel.layout ?? '',
+                    ),
+                    Items(
+                      icon: Icons.calendar_today,
+                      title: "No. of Days:",
+                      value: "${tourModel.noOfDays ?? ''}",
+                    ),
+                    Items(
+                      icon: Icons.money,
+                      title: "Advance Amount:",
+                      value: "₹${tourModel.minimumAdvanceAmt ?? ''}",
+                    ),
+                    Items(
+                      icon: Icons.event_seat,
+                      title: "Available Seat:",
+                      value: "${tourModel.availableSeat ?? ''}",
+                    ),
+                    Items(
+                      icon: Icons.date_range,
+                      title: "Start Date:",
+                      value: tourModel.startDate ?? '',
+                    ),
+                    Items(
+                      icon: Icons.date_range,
+                      title: "End Date:",
+                      value: tourModel.endDate ?? '',
+                    ),
+                    Items(
+                      icon: Icons.location_on,
+                      title: "Boarding Point:",
+                      value: tourModel.boardingPoint ?? '',
+                    ),
+                    Items(
+                      icon: Icons.location_on,
+                      title: "Boarding Time:",
+                      value: tourModel.boardingTime ?? '',
+                    ),
+                    Items(
+                      icon: Icons.warning,
+                      title: "Booking End:",
+                      value: tourModel.bookingEndDate ?? '',
                     ),
                   ],
                 ),
               ),
             ),
-            const Gap(10),
-            Card(
-              clipBehavior: Clip.hardEdge,
-              margin: const EdgeInsets.all(0),
-              child: Container(
-                width: double.infinity,
-                color: theme.colorScheme.primaryContainer,
-                padding: const EdgeInsets.all(8),
-                child: Flex(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  direction: Axis.vertical,
-                  children: [
-                    Text(
-                      "File No: ${tourModel.fileNo ?? ''}",
-                      style: theme.textTheme.bodyLarge!.copyWith(
-                        color: theme.colorScheme.onSurface,
-                      ),
+          ),
+          const Spacer(),
+          Card(
+            clipBehavior: Clip.hardEdge,
+            margin: const EdgeInsets.all(0),
+            child: Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Flex(
+                direction: Axis.horizontal,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "₹${tourModel.amount ?? ''}",
+                    style: theme.textTheme.titleLarge!.copyWith(
+                      color: theme.colorScheme.primary,
+                      fontWeight: FontWeight.bold,
                     ),
-                    const Divider(),
-                    Text(
-                      "Vehicle: ${tourModel.layout ?? ''}",
-                      style: theme.textTheme.bodyLarge!.copyWith(
-                        color: theme.colorScheme.onSurface,
-                      ),
-                    ),
-                    const Divider(),
-                    Text(
-                      "No-of days: ${tourModel.noOfDays ?? ''}",
-                      style: theme.textTheme.bodyLarge!.copyWith(
-                        color: theme.colorScheme.onSurface,
-                      ),
-                    ),
-                    const Divider(),
-                    Text(
-                      "Advance Amount: ₹${tourModel.minimumAdvanceAmt ?? ''}",
-                      style: theme.textTheme.bodyLarge!.copyWith(
-                        color: theme.colorScheme.onSurface,
-                      ),
-                    ),
-                    const Divider(),
-                    Flex(
-                      direction: Axis.horizontal,
-                      children: [
-                        const Icon(
-                          Icons.chair,
-                        ),
-                        const Gap(10),
-                        Text(
-                          "Seat: ${tourModel.availableSeat ?? ''}/${tourModel.maximumSeat ?? ''}",
-                          style: theme.textTheme.bodyLarge!.copyWith(
-                            color: theme.colorScheme.onSurface,
-                          ),
-                        )
-                      ],
-                    ),
-                    const Divider(),
-                    Text(
-                      "Startdate: ${tourModel.startDate ?? ''}",
-                      style: theme.textTheme.bodyLarge!.copyWith(
-                        color: theme.colorScheme.onSurface,
-                      ),
-                    ),
-                    const Divider(),
-                    Text(
-                      "Enddate: ${tourModel.endDate ?? ''}",
-                      style: theme.textTheme.bodyLarge!.copyWith(
-                        color: theme.colorScheme.onSurface,
-                      ),
-                    ),
-                    const Divider(),
-                    Text(
-                      "Boarding Point: ${tourModel.boardingPoint ?? ''}",
-                      style: theme.textTheme.bodyLarge!.copyWith(
-                        color: theme.colorScheme.onSurface,
-                      ),
-                    ),
-                    const Divider(),
-                    Text(
-                      "Boarding Time: ${tourModel.boardingTime ?? ''}",
-                      style: theme.textTheme.bodyLarge!.copyWith(
-                        color: theme.colorScheme.onSurface,
-                      ),
-                    ),
-                    const Divider(),
-                    Text(
-                      "Booking end: ${tourModel.bookingEndDate ?? ''}",
-                      style: theme.textTheme.bodyLarge!.copyWith(
-                        color: theme.colorScheme.error,
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                  const Gap(16),
+                  CustomButton(
+                    onPressed: () {},
+                    btnText: "Book Now",
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
+          )
+        ],
       ),
     );
   }
