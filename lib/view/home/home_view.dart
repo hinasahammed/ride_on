@@ -50,6 +50,7 @@ class _HomeViewState extends State<HomeView> {
                 return Card(
                   clipBehavior: Clip.hardEdge,
                   margin: const EdgeInsets.all(0),
+                  elevation: 4,
                   child: InkWell(
                     onTap: () {
                       Navigator.push(
@@ -76,13 +77,19 @@ class _HomeViewState extends State<HomeView> {
                           ),
                           Row(
                             children: [
+                              Icon(
+                                Icons.event_seat,
+                                size: 20.0,
+                                color:
+                                    theme.colorScheme.onSurface.withOpacity(.8),
+                              ),
+                              const Gap(5),
                               Text(
                                 "Available: ${data.availableSeat} ",
                                 style: theme.textTheme.bodyLarge!.copyWith(
                                   color: theme.colorScheme.onSurface,
                                 ),
                               ),
-                              const Icon(Icons.chair),
                             ],
                           ),
                           Wrap(

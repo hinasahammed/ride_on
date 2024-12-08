@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
       title: 'Ride On',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        scaffoldBackgroundColor: const Color(0xffDBDBDB),
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.blue,
         ),

@@ -13,12 +13,32 @@ class CustomTextformfield extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return TextFormField(
       controller: controller,
       validator: validator,
       decoration: InputDecoration(
-        border: const OutlineInputBorder(),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
+          borderSide: BorderSide(
+            color: theme.colorScheme.primary.withOpacity(.3),
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
+          borderSide: BorderSide(
+            color: theme.colorScheme.primary.withOpacity(.3),
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
+          borderSide: BorderSide(
+            color: theme.colorScheme.primary.withOpacity(.3),
+          ),
+        ),
         labelText: labelText,
+        filled: true,
+        fillColor: theme.colorScheme.surface,
       ),
     );
   }

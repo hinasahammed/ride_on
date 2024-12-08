@@ -15,8 +15,8 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   final useridController = TextEditingController();
   final passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
-  bool isloading = false;
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -24,85 +24,83 @@ class _LoginViewState extends State<LoginView> {
         body: SafeArea(
       child: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset("assets/images/bus.png"),
-            Text(
-              "Login Account",
-              style: theme.textTheme.titleLarge!.copyWith(
-                color: theme.colorScheme.primary,
-                fontWeight: FontWeight.bold,
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                "assets/images/login.png",
+                width: double.infinity,
+                height: 400,
               ),
-            ),
-            const Gap(10),
-            Text(
-              "Welcome Back!",
-              style: theme.textTheme.bodyLarge!.copyWith(
-                color: theme.colorScheme.onSurface,
-                fontWeight: FontWeight.w600,
+              Text(
+                "Login to Your Account",
+                style: theme.textTheme.titleLarge!.copyWith(
+                  color: theme.colorScheme.primary,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            const Gap(10),
-            Text(
-              "Please enter your Id and password details to access your account",
-              style: theme.textTheme.bodyMedium!.copyWith(
-                color: theme.colorScheme.onSurface.withOpacity(.8),
+              const Gap(10),
+              Text(
+                "Welcome Back, You have been missed!",
+                style: theme.textTheme.bodyLarge!.copyWith(
+                  color: theme.colorScheme.onSurface,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
-            ),
-            const Gap(20),
-            Text(
-              "Enter UserId",
-              style: theme.textTheme.bodyLarge!.copyWith(
-                color: theme.colorScheme.onSurface,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            const Gap(10),
-            CustomTextformfield(
-              controller: useridController,
-              labelText: "User ID",
-            ),
-            const Gap(20),
-            Text(
-              "Enter password",
-              style: theme.textTheme.bodyLarge!.copyWith(
-                color: theme.colorScheme.onSurface,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            const Gap(10),
-            CustomTextformfield(
-              controller: passwordController,
-              labelText: "Password",
-            ),
-            const Gap(40),
-            SizedBox(
-              width: double.infinity,
-              height: 50,
-              child: CustomButton(
-                isloading: isloading,
-                onPressed: () {
-                  setState(() {
-                    isloading = true;
-                  });
-                  AuthController().login(
-                      context,
-                      User(
-                        userId: useridController.text.trim(),
-                        pswd: passwordController.text.trim(),
-                      ));
-                  setState(() {
-                    isloading = false;
-                  });
+              const Gap(20),
+              CustomTextformfield(
+                controller: useridController,
+                validator: (userId) {
+                  if (userId == null || userId.isEmpty) {
+                    return "Enter User Id";
+                  }
+                  return null;
                 },
-                btnText: "Login",
+                labelText: "User ID",
               ),
-            )
-          ],
+              const Gap(10),
+              CustomTextformfield(
+                controller: passwordController,
+                validator: (password) {
+                  if (password == null || password.isEmpty) {
+                    return "Enter Password";
+                  }
+                  return null;
+                },
+                labelText: "Password",
+              ),
+              const Gap(40),
+              SizedBox(
+                width: double.infinity,
+                height: 50,
+                child: CustomButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      AuthController().login(
+                          context,
+                          User(
+                            userId: useridController.text.trim(),
+                            pswd: passwordController.text.trim(),
+                          ));
+                    }
+                  },
+                  btnText: "Login",
+                ),
+              )
+            ],
+          ),
         ),
       ),
     ));
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    useridController.dispose();
+    passwordController.dispose();
   }
 }
