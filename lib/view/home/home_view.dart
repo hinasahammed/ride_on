@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
-import 'package:ride_on/repository/storageRepository/api_storage_repo.dart';
 import 'package:ride_on/res/components/trips_loading.dart';
 import 'package:ride_on/view/bookingDetails/booking_details.dart';
 import 'package:ride_on/viewmodel/controller/home_controller.dart';
@@ -19,7 +18,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     super.initState();
-    ApiStorageRepo().fetchTourBooking();
+    refreshData();
   }
 
   List<String> images = [
@@ -34,6 +33,10 @@ class _HomeViewState extends State<HomeView> {
     "assets/images/bg9.jpg",
   ];
 
+  Future<void> refreshData() async {
+    await Provider.of<HomeController>(context, listen: false).fetchTourList();
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
@@ -43,61 +46,64 @@ class _HomeViewState extends State<HomeView> {
       appBar: AppBar(
         title: const Text("Explore Trips"),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Card(
-              clipBehavior: Clip.hardEdge,
-              child: Container(
-                height: 150,
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      theme.colorScheme.primary,
-                      theme.colorScheme.primary.withOpacity(.6),
+      body: RefreshIndicator(
+        onRefresh: refreshData,
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Card(
+                clipBehavior: Clip.hardEdge,
+                child: Container(
+                  height: 150,
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        theme.colorScheme.primary,
+                        theme.colorScheme.primary.withOpacity(.6),
+                      ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Find Your Next Trip",
+                          style: theme.textTheme.titleLarge!.copyWith(
+                            color: theme.colorScheme.onPrimary,
+                            fontWeight: FontWeight.bold,
+                          )),
+                      const SizedBox(height: 8),
+                      Text(
+                        "Explore destinations, book tours, and more.",
+                        style: theme.textTheme.bodyLarge!.copyWith(
+                          color: theme.colorScheme.onPrimary.withOpacity(.6),
+                        ),
+                      ),
                     ],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
                   ),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("Find Your Next Trip",
-                        style: theme.textTheme.titleLarge!.copyWith(
-                          color: theme.colorScheme.onPrimary,
-                          fontWeight: FontWeight.bold,
-                        )),
-                    const SizedBox(height: 8),
-                    Text(
-                      "Explore destinations, book tours, and more.",
-                      style: theme.textTheme.bodyLarge!.copyWith(
-                        color: theme.colorScheme.onPrimary.withOpacity(.6),
-                      ),
-                    ),
-                  ],
+              ),
+              const Gap(20),
+              Text(
+                "Trips",
+                style: theme.textTheme.bodyLarge!.copyWith(
+                  color: theme.colorScheme.onSurface,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-            ),
-            const Gap(20),
-            Text(
-              "Trips",
-              style: theme.textTheme.bodyLarge!.copyWith(
-                color: theme.colorScheme.onSurface,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const Gap(10),
-            Expanded(
-              child: FutureBuilder(
+              const Gap(10),
+              FutureBuilder(
                 future: homeController.fetchTourList(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return ListView.separated(
                       itemCount: 5,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
                       separatorBuilder: (context, index) => const Gap(10),
                       itemBuilder: (context, index) => const TripsLoading(),
                     );
@@ -109,6 +115,8 @@ class _HomeViewState extends State<HomeView> {
                   } else {
                     return ListView.separated(
                       itemCount: snapshot.data!.data!.length,
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
                       separatorBuilder: (context, index) => const Gap(10),
                       itemBuilder: (context, index) {
                         var data = snapshot.data!.data![index];
@@ -200,8 +208,8 @@ class _HomeViewState extends State<HomeView> {
                   }
                 },
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
