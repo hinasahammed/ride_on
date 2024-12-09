@@ -37,14 +37,7 @@ class BookingDetails extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const Gap(8),
-                    Text(
-                      "₹${tourModel.amount}",
-                      style: theme.textTheme.titleLarge!.copyWith(
-                        color: theme.colorScheme.primary,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                   
                     const Gap(16),
                     const Divider(),
                     Items(
