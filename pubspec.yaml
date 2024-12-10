@@ -44,6 +44,8 @@ dependencies:
   shimmer: ^3.0.0
   fluttertoast: ^8.2.8
   book_my_seat: ^1.0.1
+  google_nav_bar: ^5.0.7
+  lottie: ^3.2.0
 
 dev_dependencies:
   flutter_test:

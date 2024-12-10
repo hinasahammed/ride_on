@@ -94,12 +94,12 @@ class _BusLayoutState extends State<BusLayout> {
                                         .first;
                                   }
                                   return seat.isEmpty
-                                      ? Gap(size.width * .12)
+                                      ? Gap(size.width * .15)
                                       : Card(
                                           clipBehavior: Clip.hardEdge,
-                                          margin: const EdgeInsets.all(5),
+                                          // margin: const EdgeInsets.all(5),
                                           child: Container(
-                                            width: size.width * .15$^ ,
+                                            width: size.width * .15,
                                             alignment: Alignment.center,
                                             padding: const EdgeInsets.all(8.0),
                                             decoration: BoxDecoration(

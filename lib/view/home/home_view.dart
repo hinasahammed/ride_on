@@ -2,10 +2,13 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:ride_on/res/components/custom_textformfield.dart';
 import 'package:ride_on/res/components/trips_loading.dart';
-import 'package:ride_on/view/bookingDetails/bus_layout.dart';
+import 'package:ride_on/res/utils/constants/trip_images.dart';
+import 'package:ride_on/view/allTrips/all_trips.dart';
+import 'package:ride_on/view/busLayout/bus_layout.dart';
 import 'package:ride_on/viewmodel/controller/tour_controller.dart';
 
 class HomeView extends StatefulWidget {
@@ -21,18 +24,6 @@ class _HomeViewState extends State<HomeView> {
     super.initState();
     refreshData(context);
   }
-
-  List<String> images = [
-    "assets/images/bg1.jpg",
-    "assets/images/bg2.jpg",
-    "assets/images/bg3.jpg",
-    "assets/images/bg4.jpg",
-    "assets/images/bg5.jpg",
-    "assets/images/bg6.jpg",
-    "assets/images/bg7.jpg",
-    "assets/images/bg8.jpg",
-    "assets/images/bg9.jpg",
-  ];
 
   Future<void> refreshData(BuildContext context) async {
     await Provider.of<TourController>(context, listen: false)
@@ -56,15 +47,34 @@ class _HomeViewState extends State<HomeView> {
         child: ListView(
           padding: const EdgeInsets.all(16),
           children: [
-            CustomTextformfield(
-              prefix: Icon(
-                Icons.search,
-                color: theme.colorScheme.onSurface.withOpacity(.7),
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                  color: theme.colorScheme.surface,
+                  border: Border.all(
+                    color: theme.colorScheme.primary.withOpacity(.3),
+                  ),
+                  borderRadius: BorderRadius.circular(15)),
+              child: Flex(
+                direction: Axis.horizontal,
+                children: [
+                  Icon(
+                    Icons.search,
+                    color: theme.colorScheme.onSurface.withOpacity(.7),
+                  ),
+                  const Gap(10),
+                  Text(
+                    "Search Destinations",
+                    style: theme.textTheme.bodyLarge!.copyWith(
+                      color: theme.colorScheme.onSurface.withOpacity(.7),
+                    ),
+                  )
+                ],
               ),
-              labelText: "Search Destinations",
             ),
             const Gap(10),
             Card(
+              margin: const EdgeInsets.all(0),
               clipBehavior: Clip.hardEdge,
               child: Container(
                 height: 150,
@@ -82,11 +92,13 @@ class _HomeViewState extends State<HomeView> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Find Your Next Trip",
-                        style: theme.textTheme.titleLarge!.copyWith(
-                          color: theme.colorScheme.onPrimary,
-                          fontWeight: FontWeight.bold,
-                        )),
+                    Text(
+                      "Find Your Next Trip",
+                      style: theme.textTheme.titleLarge!.copyWith(
+                        color: theme.colorScheme.onPrimary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     const SizedBox(height: 8),
                     Text(
                       "Explore destinations, book tours, and more.",
@@ -111,7 +123,14 @@ class _HomeViewState extends State<HomeView> {
                   ),
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const AllTrips(),
+                      ),
+                    );
+                  },
                   child: const Text("See all"),
                 )
               ],
@@ -143,8 +162,7 @@ class _HomeViewState extends State<HomeView> {
                     separatorBuilder: (context, index) => const Gap(10),
                     itemBuilder: (context, index) {
                       var data = snapshot.data!.data![index];
-                      return Card(
-                        clipBehavior: Clip.hardEdge,
+                      return Card( 
                         margin: const EdgeInsets.all(0),
                         elevation: 4,
                         child: InkWell(
@@ -164,7 +182,8 @@ class _HomeViewState extends State<HomeView> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Image.asset(
-                                  images[Random().nextInt(images.length - 1)],
+                                  tripImages[
+                                      Random().nextInt(tripImages.length - 1)],
                                   height: 200,
                                   width: double.infinity,
                                   fit: BoxFit.cover,
@@ -225,6 +244,31 @@ class _HomeViewState extends State<HomeView> {
           ],
         ),
       ),
+      // bottomNavigationBar: Container(
+      //   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      //   child: GNav(
+      //     color: theme.colorScheme.primary,
+      //     activeColor: theme.colorScheme.onPrimary,
+      //     tabBackgroundColor: theme.colorScheme.primary,
+      //     gap: 8,
+      //     padding: const EdgeInsets.all(12),
+      //     onTabChange: (newIndex) {},
+      //     tabs: const [
+      //       GButton(
+      //         icon: Icons.home_filled,
+      //         text: 'Home',
+      //       ),
+      //       GButton(
+      //         icon: Icons.search,
+      //         text: 'Search',
+      //       ),
+      //       GButton(
+      //         icon: Icons.person,
+      //         text: 'Account',
+      //       ),
+      //     ],
+      //   ),
+      // ),
     );
   }
 }
