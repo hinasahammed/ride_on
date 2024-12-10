@@ -13,7 +13,7 @@ class TripsLoading extends StatelessWidget {
       enabled: true,
       child: Container(
         width: size.width,
-        height: 200,
+        height: 250,
         decoration: BoxDecoration(
           color: Colors.grey,
           borderRadius: BorderRadius.circular(15),

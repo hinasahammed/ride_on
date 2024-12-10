@@ -7,8 +7,8 @@ class HomeController extends ChangeNotifier {
 
   final ApiStorageRepo storageRepository;
 
-  Future<TourModel> fetchTourList() async {
-    var data = await storageRepository.fetchTourBooking();
+  Future<TourModel?> fetchTourList(BuildContext context) async {
+    var data = await storageRepository.fetchTourBooking(context);
     return data;
   }
 }

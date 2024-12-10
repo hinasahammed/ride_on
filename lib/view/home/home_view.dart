@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
+import 'package:ride_on/res/components/custom_textformfield.dart';
 import 'package:ride_on/res/components/trips_loading.dart';
 import 'package:ride_on/view/bookingDetails/booking_details.dart';
 import 'package:ride_on/viewmodel/controller/home_controller.dart';
@@ -18,7 +19,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     super.initState();
-    refreshData();
+    refreshData(context);
   }
 
   List<String> images = [
@@ -33,8 +34,10 @@ class _HomeViewState extends State<HomeView> {
     "assets/images/bg9.jpg",
   ];
 
-  Future<void> refreshData() async {
-    await Provider.of<HomeController>(context, listen: false).fetchTourList();
+  Future<void> refreshData(BuildContext context) async {
+    await Provider.of<HomeController>(context, listen: false)
+        .fetchTourList(context);
+    setState(() {});
   }
 
   @override
@@ -47,169 +50,180 @@ class _HomeViewState extends State<HomeView> {
         title: const Text("Explore Trips"),
       ),
       body: RefreshIndicator(
-        onRefresh: refreshData,
-        child: SingleChildScrollView(
+        onRefresh: () {
+          return refreshData(context);
+        },
+        child: ListView(
           padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Card(
-                clipBehavior: Clip.hardEdge,
-                child: Container(
-                  height: 150,
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        theme.colorScheme.primary,
-                        theme.colorScheme.primary.withOpacity(.6),
-                      ],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Find Your Next Trip",
-                          style: theme.textTheme.titleLarge!.copyWith(
-                            color: theme.colorScheme.onPrimary,
-                            fontWeight: FontWeight.bold,
-                          )),
-                      const SizedBox(height: 8),
-                      Text(
-                        "Explore destinations, book tours, and more.",
-                        style: theme.textTheme.bodyLarge!.copyWith(
-                          color: theme.colorScheme.onPrimary.withOpacity(.6),
-                        ),
-                      ),
+          children: [
+            CustomTextformfield(
+              prefix: Icon(
+                Icons.search,
+                color: theme.colorScheme.onSurface.withOpacity(.7),
+              ),
+              labelText: "Search Destinations",
+            ),
+            const Gap(10),
+            Card(
+              clipBehavior: Clip.hardEdge,
+              child: Container(
+                height: 150,
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      theme.colorScheme.primary,
+                      theme.colorScheme.primary.withOpacity(.6),
                     ],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
                   ),
                 ),
-              ),
-              const Gap(20),
-              Text(
-                "Trips",
-                style: theme.textTheme.bodyLarge!.copyWith(
-                  color: theme.colorScheme.onSurface,
-                  fontWeight: FontWeight.bold,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Find Your Next Trip",
+                        style: theme.textTheme.titleLarge!.copyWith(
+                          color: theme.colorScheme.onPrimary,
+                          fontWeight: FontWeight.bold,
+                        )),
+                    const SizedBox(height: 8),
+                    Text(
+                      "Explore destinations, book tours, and more.",
+                      style: theme.textTheme.bodyLarge!.copyWith(
+                        color: theme.colorScheme.onPrimary.withOpacity(.6),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              const Gap(10),
-              FutureBuilder(
-                future: homeController.fetchTourList(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return ListView.separated(
-                      itemCount: 5,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      separatorBuilder: (context, index) => const Gap(10),
-                      itemBuilder: (context, index) => const TripsLoading(),
-                    );
-                  }
-                  if (!snapshot.hasData || snapshot.data == null) {
-                    return const Center(
-                      child: Text("No Trip found"),
-                    );
-                  } else {
-                    return ListView.separated(
-                      itemCount: snapshot.data!.data!.length,
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      separatorBuilder: (context, index) => const Gap(10),
-                      itemBuilder: (context, index) {
-                        var data = snapshot.data!.data![index];
-                        return Card(
-                          clipBehavior: Clip.hardEdge,
-                          margin: const EdgeInsets.all(0),
-                          elevation: 4,
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => BookingDetails(
-                                    tourModel: data,
-                                  ),
+            ),
+            const Gap(20),
+            Flex(
+              direction: Axis.horizontal,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Popular trips",
+                  style: theme.textTheme.bodyLarge!.copyWith(
+                    color: theme.colorScheme.onSurface,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {},
+                  child: const Text("See all"),
+                )
+              ],
+            ),
+            const Gap(10),
+            FutureBuilder(
+              future: homeController.fetchTourList(context),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return ListView.separated(
+                    itemCount: 5,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    separatorBuilder: (context, index) => const Gap(10),
+                    itemBuilder: (context, index) => const TripsLoading(),
+                  );
+                }
+                if (!snapshot.hasData ||
+                    snapshot.data?.data == null ||
+                    snapshot.data!.data!.isEmpty) {
+                  return const Center(
+                    child: Text("No Trip found"),
+                  );
+                } else {
+                  return ListView.separated(
+                    itemCount: snapshot.data!.data!.length,
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    separatorBuilder: (context, index) => const Gap(10),
+                    itemBuilder: (context, index) {
+                      var data = snapshot.data!.data![index];
+                      return Card(
+                        clipBehavior: Clip.hardEdge,
+                        margin: const EdgeInsets.all(0),
+                        elevation: 4,
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => BookingDetails(
+                                  tourModel: data,
                                 ),
-                              );
-                            },
-                            child: Container(
-                              width: size.width,
-                              height: 220,
-                              alignment: Alignment.bottomCenter,
-                              padding: const EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: AssetImage(
-                                    images[Random().nextInt(images.length - 1)],
-                                  ),
+                              ),
+                            );
+                          },
+                          child: SizedBox(
+                            width: size.width,
+                            child: Flex(
+                              direction: Axis.vertical,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Image.asset(
+                                  images[Random().nextInt(images.length - 1)],
+                                  height: 200,
+                                  width: double.infinity,
                                   fit: BoxFit.cover,
                                 ),
-                              ),
-                              child: Container(
-                                width: double.infinity,
-                                height: 120,
-                                padding: const EdgeInsets.all(8),
-                                decoration: BoxDecoration(
-                                  color: theme.colorScheme.onSurface
-                                      .withOpacity(.6),
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: Flex(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  direction: Axis.vertical,
-                                  children: [
-                                    Text(
-                                      data.name ?? '',
-                                      style:
-                                          theme.textTheme.labelLarge!.copyWith(
-                                        color: theme.colorScheme.surface,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                    Flex(
-                                      direction: Axis.horizontal,
-                                      children: [
-                                        Image.asset(
-                                          "assets/icons/seat.png",
-                                          width: 30,
+                                const Gap(5),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Flex(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    direction: Axis.vertical,
+                                    children: [
+                                      Text(
+                                        data.name ?? '',
+                                        style: theme.textTheme.labelLarge!
+                                            .copyWith(
+                                          color: theme.colorScheme.onSurface,
+                                          fontWeight: FontWeight.w600,
                                         ),
-                                        const Gap(5),
-                                        Text(
-                                          "Available: ${data.availableSeat} ",
-                                          style: theme.textTheme.labelLarge!
-                                              .copyWith(
-                                            color: theme.colorScheme.surface,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      Flex(
+                                        direction: Axis.horizontal,
+                                        children: [
+                                          Text(
+                                            "Available Seat: ${data.availableSeat} ",
+                                            style: theme.textTheme.labelLarge!
+                                                .copyWith(
+                                              color:
+                                                  theme.colorScheme.onSurface,
+                                            ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                    Text(
-                                      "₹${data.amount}",
-                                      style:
-                                          theme.textTheme.labelLarge!.copyWith(
-                                        color:
-                                            theme.colorScheme.primaryContainer,
-                                        fontWeight: FontWeight.w700,
+                                          const Gap(5),
+                                        ],
                                       ),
-                                    ),
-                                  ],
+                                      Text(
+                                        "₹${data.amount}",
+                                        style:
+                                            theme.textTheme.bodyLarge!.copyWith(
+                                          color: theme.colorScheme.onSurface,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
+                              ],
                             ),
                           ),
-                        );
-                      },
-                    );
-                  }
-                },
-              ),
-            ],
-          ),
+                        ),
+                      );
+                    },
+                  );
+                }
+              },
+            ),
+          ],
         ),
       ),
     );

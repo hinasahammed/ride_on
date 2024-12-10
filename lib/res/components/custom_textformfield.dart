@@ -6,10 +6,12 @@ class CustomTextformfield extends StatelessWidget {
     this.controller,
     this.labelText,
     this.validator,
+    this.prefix,
   });
   final TextEditingController? controller;
   final String? labelText;
   final String? Function(String?)? validator;
+  final Widget? prefix;
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +41,7 @@ class CustomTextformfield extends StatelessWidget {
         labelText: labelText,
         filled: true,
         fillColor: theme.colorScheme.surface,
+        prefixIcon: prefix,
       ),
     );
   }
