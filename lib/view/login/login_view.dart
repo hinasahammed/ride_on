@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
-import 'package:ride_on/model/user.dart';
+import 'package:ride_on/model/user/user.dart';
 import 'package:ride_on/res/components/custom_button.dart';
 import 'package:ride_on/res/components/custom_textformfield.dart';
 import 'package:ride_on/viewmodel/controller/auth_controller.dart';

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:ride_on/model/user.dart';
+import 'package:ride_on/model/user/user.dart';
 import 'package:ride_on/repository/authRepository/auth_repository.dart';
 import 'package:http/http.dart' as http;
 import 'package:ride_on/res/utils/utils.dart';
