@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
-class TripsLoading extends StatelessWidget {
-  const TripsLoading({super.key});
+class TripsLoadingVertical extends StatelessWidget {
+  const TripsLoadingVertical({super.key});
 
   @override
   Widget build(BuildContext context) {

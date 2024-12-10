@@ -5,7 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 import 'package:ride_on/res/components/custom_textformfield.dart';
 import 'package:ride_on/res/components/no_data_found.dart';
-import 'package:ride_on/res/components/trips_loading.dart';
+import 'package:ride_on/res/components/trips_loading_horizontal.dart.dart';
 import 'package:ride_on/res/utils/constants/trip_images.dart';
 import 'package:ride_on/view/busLayout/bus_layout.dart';
 import 'package:ride_on/viewmodel/controller/tour_controller.dart';
@@ -50,7 +50,8 @@ class _AllTripsState extends State<AllTrips> {
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       separatorBuilder: (context, index) => const Gap(10),
-                      itemBuilder: (context, index) => const TripsLoading(),
+                      itemBuilder: (context, index) =>
+                          const TripsLoadingHorizontal(),
                     );
                   }
                   if (snapshot.hasError) {

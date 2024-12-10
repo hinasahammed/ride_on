@@ -1,10 +1,11 @@
 import 'dart:math';
 
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
-import 'package:ride_on/res/components/trips_loading.dart';
+import 'package:ride_on/res/components/trips_loading_horizontal.dart.dart';
 import 'package:ride_on/res/utils/constants/trip_images.dart';
 import 'package:ride_on/view/allTrips/all_trips.dart';
 import 'package:ride_on/view/busLayout/bus_layout.dart';
@@ -37,7 +38,7 @@ class _HomeViewState extends State<HomeView> {
     final homeController = Provider.of<TourController>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Explore Trips"),
+        title: const Text("RideOn"),
       ),
       body: RefreshIndicator(
         onRefresh: () {
@@ -46,30 +47,36 @@ class _HomeViewState extends State<HomeView> {
         child: ListView(
           padding: const EdgeInsets.all(16),
           children: [
-            Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                  color: theme.colorScheme.surface,
-                  border: Border.all(
-                    color: theme.colorScheme.primary.withOpacity(.3),
-                  ),
+            OpenContainer(
+              closedShape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15)),
-              child: Flex(
-                direction: Axis.horizontal,
-                children: [
-                  Icon(
-                    Icons.search,
-                    color: theme.colorScheme.onSurface.withOpacity(.7),
-                  ),
-                  const Gap(10),
-                  Text(
-                    "Search Destinations",
-                    style: theme.textTheme.bodyLarge!.copyWith(
+              transitionDuration: const Duration(milliseconds: 600),
+              closedBuilder: (context, action) => Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                    color: theme.colorScheme.surface,
+                    border: Border.all(
+                      color: theme.colorScheme.primary.withOpacity(.3),
+                    ),
+                    borderRadius: BorderRadius.circular(15)),
+                child: Flex(
+                  direction: Axis.horizontal,
+                  children: [
+                    Icon(
+                      Icons.search,
                       color: theme.colorScheme.onSurface.withOpacity(.7),
                     ),
-                  )
-                ],
+                    const Gap(10),
+                    Text(
+                      "Search Destinations",
+                      style: theme.textTheme.bodyLarge!.copyWith(
+                        color: theme.colorScheme.onSurface.withOpacity(.7),
+                      ),
+                    )
+                  ],
+                ),
               ),
+              openBuilder: (context, action) => const AllTrips(),
             ),
             const Gap(10),
             Card(
@@ -139,12 +146,16 @@ class _HomeViewState extends State<HomeView> {
               future: homeController.fetchTourList(context),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return ListView.separated(
-                    itemCount: 5,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    separatorBuilder: (context, index) => const Gap(10),
-                    itemBuilder: (context, index) => const TripsLoading(),
+                  return SizedBox(
+                    height: 300,
+                    child: ListView.separated(
+                      itemCount: 5,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      separatorBuilder: (context, index) => const Gap(10),
+                      itemBuilder: (context, index) =>
+                          const TripsLoadingHorizontal(),
+                    ),
                   );
                 }
                 if (!snapshot.hasData ||
@@ -154,88 +165,91 @@ class _HomeViewState extends State<HomeView> {
                     child: Text("No Trip found"),
                   );
                 } else {
-                  return ListView.separated(
-                    itemCount: snapshot.data!.data!.length,
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    separatorBuilder: (context, index) => const Gap(10),
-                    itemBuilder: (context, index) {
-                      var data = snapshot.data!.data![index];
-                      return Card( 
-                        margin: const EdgeInsets.all(0),
-                        elevation: 4,
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    BusLayout(tourModel: data),
-                              ),
-                            );
-                          },
-                          child: SizedBox(
-                            width: size.width,
-                            child: Flex(
-                              direction: Axis.vertical,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Image.asset(
-                                  tripImages[
-                                      Random().nextInt(tripImages.length - 1)],
-                                  height: 200,
-                                  width: double.infinity,
-                                  fit: BoxFit.cover,
+                  return SizedBox(
+                    height: 320,
+                    child: ListView.builder(
+                      itemCount: snapshot.data!.data!.length,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        var data = snapshot.data!.data![index];
+                        return Card(
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 5, vertical: 5),
+                          clipBehavior: Clip.hardEdge,
+                          elevation: 4,
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      BusLayout(tourModel: data),
                                 ),
-                                const Gap(5),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Flex(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    direction: Axis.vertical,
-                                    children: [
-                                      Text(
-                                        data.name ?? '',
-                                        style: theme.textTheme.labelLarge!
-                                            .copyWith(
-                                          color: theme.colorScheme.onSurface,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                      Flex(
-                                        direction: Axis.horizontal,
-                                        children: [
-                                          Text(
-                                            "Available Seat: ${data.availableSeat} ",
-                                            style: theme.textTheme.labelLarge!
-                                                .copyWith(
-                                              color:
-                                                  theme.colorScheme.onSurface,
-                                            ),
-                                          ),
-                                          const Gap(5),
-                                        ],
-                                      ),
-                                      Text(
-                                        "₹${data.amount}",
-                                        style:
-                                            theme.textTheme.bodyLarge!.copyWith(
-                                          color: theme.colorScheme.onSurface,
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                      ),
-                                    ],
+                              );
+                            },
+                            child: SizedBox(
+                              width: size.width * .8,
+                              child: Flex(
+                                direction: Axis.vertical,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Image.asset(
+                                    tripImages[Random()
+                                        .nextInt(tripImages.length - 1)],
+                                    height: 200,
+                                    width: double.infinity,
+                                    fit: BoxFit.cover,
                                   ),
-                                ),
-                              ],
+                                  const Gap(5),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Flex(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      direction: Axis.vertical,
+                                      children: [
+                                        Text(
+                                          data.name ?? '',
+                                          style: theme.textTheme.labelLarge!
+                                              .copyWith(
+                                            color: theme.colorScheme.onSurface,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        Flex(
+                                          direction: Axis.horizontal,
+                                          children: [
+                                            Text(
+                                              "Available Seat: ${data.availableSeat} ",
+                                              style: theme.textTheme.labelLarge!
+                                                  .copyWith(
+                                                color:
+                                                    theme.colorScheme.onSurface,
+                                              ),
+                                            ),
+                                            const Gap(5),
+                                          ],
+                                        ),
+                                        Text(
+                                          "₹${data.amount}",
+                                          style: theme.textTheme.bodyLarge!
+                                              .copyWith(
+                                            color: theme.colorScheme.onSurface,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   );
                 }
               },
@@ -243,31 +257,31 @@ class _HomeViewState extends State<HomeView> {
           ],
         ),
       ),
-      // bottomNavigationBar: Container(
-      //   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      //   child: GNav(
-      //     color: theme.colorScheme.primary,
-      //     activeColor: theme.colorScheme.onPrimary,
-      //     tabBackgroundColor: theme.colorScheme.primary,
-      //     gap: 8,
-      //     padding: const EdgeInsets.all(12),
-      //     onTabChange: (newIndex) {},
-      //     tabs: const [
-      //       GButton(
-      //         icon: Icons.home_filled,
-      //         text: 'Home',
-      //       ),
-      //       GButton(
-      //         icon: Icons.search,
-      //         text: 'Search',
-      //       ),
-      //       GButton(
-      //         icon: Icons.person,
-      //         text: 'Account',
-      //       ),
-      //     ],
-      //   ),
-      // ),
+      bottomNavigationBar: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        child: GNav(
+          color: theme.colorScheme.primary,
+          activeColor: theme.colorScheme.onPrimary,
+          tabBackgroundColor: theme.colorScheme.primary,
+          gap: 8,
+          padding: const EdgeInsets.all(12),
+          onTabChange: (newIndex) {},
+          tabs: const [
+            GButton(
+              icon: Icons.home_filled,
+              text: 'Home',
+            ),
+            GButton(
+              icon: Icons.search,
+              text: 'Search',
+            ),
+            GButton(
+              icon: Icons.person,
+              text: 'Account',
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
