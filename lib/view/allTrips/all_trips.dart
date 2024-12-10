@@ -39,6 +39,7 @@ class _AllTripsState extends State<AllTrips> {
               ),
               labelText: "Search Destinations",
             ),
+            const Gap(20),
             Expanded(
               child: FutureBuilder(
                 future: homeController.fetchTourList(context),

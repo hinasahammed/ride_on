@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
-import 'package:ride_on/res/components/custom_textformfield.dart';
 import 'package:ride_on/res/components/trips_loading.dart';
 import 'package:ride_on/res/utils/constants/trip_images.dart';
 import 'package:ride_on/view/allTrips/all_trips.dart';
