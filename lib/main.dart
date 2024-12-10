@@ -5,7 +5,7 @@ import 'package:ride_on/repository/authRepository/auth_repo.dart';
 import 'package:ride_on/repository/storageRepository/api_storage_repo.dart';
 import 'package:ride_on/view/login/login_view.dart';
 import 'package:ride_on/viewmodel/controller/auth_controller.dart';
-import 'package:ride_on/viewmodel/controller/home_controller.dart';
+import 'package:ride_on/viewmodel/controller/tour_controller.dart';
 
 void main() {
   runApp(const MyApp());
@@ -38,7 +38,7 @@ class _MyAppState extends State<MyApp> {
         ),
         ChangeNotifierProvider(
           create: (context) =>
-              HomeController(storageRepository: _storageRepository),
+              TourController(storageRepository: _storageRepository),
         )
       ],
       child: MaterialApp(
@@ -52,7 +52,7 @@ class _MyAppState extends State<MyApp> {
           textTheme: GoogleFonts.robotoTextTheme(),
           useMaterial3: true,
         ),
-        home:const LoginView(),
+        home: const LoginView(),
       ),
     );
   }

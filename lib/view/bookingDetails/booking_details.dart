@@ -16,7 +16,6 @@ class BookingDetails extends StatelessWidget {
         title: const Text("Details"),
       ),
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.all(16.0),
@@ -37,7 +36,6 @@ class BookingDetails extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                   
                     const Gap(16),
                     const Divider(),
                     Items(

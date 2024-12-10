@@ -5,8 +5,8 @@ import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 import 'package:ride_on/res/components/custom_textformfield.dart';
 import 'package:ride_on/res/components/trips_loading.dart';
-import 'package:ride_on/view/bookingDetails/booking_details.dart';
-import 'package:ride_on/viewmodel/controller/home_controller.dart';
+import 'package:ride_on/view/bookingDetails/bus_layout.dart';
+import 'package:ride_on/viewmodel/controller/tour_controller.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -35,7 +35,7 @@ class _HomeViewState extends State<HomeView> {
   ];
 
   Future<void> refreshData(BuildContext context) async {
-    await Provider.of<HomeController>(context, listen: false)
+    await Provider.of<TourController>(context, listen: false)
         .fetchTourList(context);
     setState(() {});
   }
@@ -44,7 +44,7 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
     final theme = Theme.of(context);
-    final homeController = Provider.of<HomeController>(context, listen: false);
+    final homeController = Provider.of<TourController>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Explore Trips"),
@@ -152,9 +152,8 @@ class _HomeViewState extends State<HomeView> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => BookingDetails(
-                                  tourModel: data,
-                                ),
+                                builder: (context) =>
+                                    BusLayout(tourModel: data),
                               ),
                             );
                           },
