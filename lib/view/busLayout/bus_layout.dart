@@ -5,6 +5,7 @@ import 'package:ride_on/gen/assets.gen.dart';
 import 'package:ride_on/model/bus_layout_model/slot.dart';
 import 'package:ride_on/model/tour_model/datum.dart';
 import 'package:ride_on/res/components/common/custom_button.dart';
+import 'package:ride_on/view/busLayout/widget/checkout_items.dart';
 import 'package:ride_on/view/busLayout/widget/seat_status.dart';
 import 'package:ride_on/viewmodel/controller/tour_controller.dart';
 
@@ -186,6 +187,26 @@ class _BusLayoutState extends State<BusLayout> {
                         color: theme.colorScheme.primary,
                         title: "Selected",
                       ),
+                    ],
+                  ),
+                  const Divider(),
+                  const Gap(10),
+                  const Flex(
+                    direction: Axis.horizontal,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CheckoutItems(
+                        title: "Ticket Price",
+                        value: "₹200",
+                      ),
+                      CheckoutItems(
+                        title: "Total Price",
+                        value: "₹400",
+                      ),
+                      CheckoutItems(
+                        title: "Selected Seat",
+                        value: "2 Seat",
+                      )
                     ],
                   ),
                   const Divider(),

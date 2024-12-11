@@ -29,7 +29,6 @@ class _AllTripsItemCardState extends State<AllTripsItemCard> {
           return ListView.separated(
             itemCount: 5,
             shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
             separatorBuilder: (context, index) => const Gap(10),
             itemBuilder: (context, index) => const TripsLoadingHorizontal(),
           );
@@ -52,6 +51,7 @@ class _AllTripsItemCardState extends State<AllTripsItemCard> {
           return ListView.separated(
             itemCount: snapshot.data!.data!.length,
             shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
             separatorBuilder: (context, index) => const Gap(10),
             itemBuilder: (context, index) {
               var data = snapshot.data!.data![index];
