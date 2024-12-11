@@ -1,11 +1,13 @@
+import 'package:ride_on/gen/assets.gen.dart';
+
 List<String> tripImages = [
-    "assets/images/bg1.jpg",
-    "assets/images/bg2.jpg",
-    "assets/images/bg3.jpg",
-    "assets/images/bg4.jpg",
-    "assets/images/bg5.jpg",
-    "assets/images/bg6.jpg",
-    "assets/images/bg7.jpg",
-    "assets/images/bg8.jpg",
-    "assets/images/bg9.jpg",
-  ];
+  Assets.images.bg1.path,
+  Assets.images.bg2.path,
+  Assets.images.bg3.path,
+  Assets.images.bg4.path,
+  Assets.images.bg5.path,
+  Assets.images.bg6.path,
+  Assets.images.bg7.path,
+  Assets.images.bg8.path,
+  Assets.images.bg9.path,
+];

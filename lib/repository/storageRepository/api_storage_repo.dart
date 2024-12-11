@@ -7,13 +7,8 @@ import 'package:ride_on/model/bus_layout_model/bus_layout_model.dart';
 import 'package:ride_on/model/tour_model/tour_model.dart';
 import 'package:ride_on/repository/storageRepository/storage_repository.dart';
 import 'package:http/http.dart' as http;
+import 'package:ride_on/res/appUrl/app_url.dart';
 import 'package:ride_on/res/utils/utils.dart';
-
-const tourApi =
-    "https://demotravels.api.deeprootcrm.com/api/Tour/tour_booking_list";
-
-const busLayoutApi =
-    "https://demotravels.api.deeprootcrm.com/api/Tour/tour_sloat_list";
 
 class ApiStorageRepo implements StorageRepository {
   @override
@@ -28,7 +23,7 @@ class ApiStorageRepo implements StorageRepository {
         "BoardingPoint": ""
       };
       final response = await http.post(
-        Uri.parse(tourApi),
+        Uri.parse(AppUrl.tourApi),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode(data),
       );
@@ -53,7 +48,7 @@ class ApiStorageRepo implements StorageRepository {
     var data = {"Code": code};
     try {
       final response = await http.post(
-        Uri.parse(busLayoutApi),
+        Uri.parse(AppUrl.busLayoutApi),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode(data),
       );

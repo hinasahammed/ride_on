@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:ride_on/gen/assets.gen.dart';
 import 'package:ride_on/view/login/login_view.dart';
 
 class SplashView extends StatefulWidget {
@@ -31,7 +32,7 @@ class _SplashViewState extends State<SplashView> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset("assets/images/ride_on_logo.png"),
+            Assets.images.rideOnLogo.image(),
             const CircularProgressIndicator(),
           ],
         ),

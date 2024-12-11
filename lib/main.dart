@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:ride_on/repository/authRepository/auth_repo.dart';
 import 'package:ride_on/repository/storageRepository/api_storage_repo.dart';
-import 'package:ride_on/view/home/home_view.dart';
+import 'package:ride_on/view/splash/splash_view.dart';
 import 'package:ride_on/viewmodel/controller/auth_controller.dart';
 import 'package:ride_on/viewmodel/controller/tour_controller.dart';
 
@@ -52,7 +52,7 @@ class _MyAppState extends State<MyApp> {
           textTheme: GoogleFonts.robotoTextTheme(),
           useMaterial3: true,
         ),
-        home: const HomeView(),
+        home: const SplashView(),
       ),
     );
   }

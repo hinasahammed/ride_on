@@ -4,17 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:ride_on/model/user/user.dart';
 import 'package:ride_on/repository/authRepository/auth_repository.dart';
 import 'package:http/http.dart' as http;
+import 'package:ride_on/res/appUrl/app_url.dart';
 import 'package:ride_on/res/utils/utils.dart';
-import 'package:ride_on/view/home/home_view.dart';
+import 'package:ride_on/view/customNavigation/custom_navigation.dart';
 
-const loginApi = "https://demotravels.api.deeprootcrm.com/api/User/user_login";
 
 class AuthRepo implements AuthRepository {
   @override
   Future login(BuildContext context, User user) async {
     try {
       final response = await http.post(
-        Uri.parse(loginApi),
+        Uri.parse(AppUrl.loginApi),
         headers: {"Content-Type": "application/json"},
         body: user.toJson(),
       );
@@ -25,7 +25,7 @@ class AuthRepo implements AuthRepository {
           Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => const HomeView(),
+                builder: (context) => const CustomNavigation(),
               ));
         }
       } else {

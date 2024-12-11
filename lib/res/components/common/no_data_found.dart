@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:ride_on/gen/assets.gen.dart';
 
 class NoDataFound extends StatelessWidget {
   const NoDataFound({super.key});
@@ -11,7 +12,7 @@ class NoDataFound extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Lottie.asset(
-            "assets/images/no_item_found.json",
+            Assets.images.noItemFound,
           ),
         ],
       ),

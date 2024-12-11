@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
+import 'package:ride_on/gen/assets.gen.dart';
 import 'package:ride_on/model/user/user.dart';
-import 'package:ride_on/res/components/custom_button.dart';
-import 'package:ride_on/res/components/custom_textformfield.dart';
+import 'package:ride_on/res/components/common/custom_button.dart';
+import 'package:ride_on/res/components/common/custom_textformfield.dart';
 import 'package:ride_on/viewmodel/controller/auth_controller.dart';
 
 class LoginView extends StatefulWidget {
@@ -32,8 +33,7 @@ class _LoginViewState extends State<LoginView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(
-                "assets/images/login.png",
+              Assets.images.login.image(
                 width: double.infinity,
                 height: 400,
               ),
