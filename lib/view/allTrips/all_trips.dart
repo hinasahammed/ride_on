@@ -7,6 +7,7 @@ import 'package:ride_on/res/components/common/custom_textformfield.dart';
 import 'package:ride_on/res/components/common/no_data_found.dart';
 import 'package:ride_on/res/components/common/trips_loading_horizontal.dart.dart';
 import 'package:ride_on/res/utils/constants/trip_images.dart';
+import 'package:ride_on/view/bookingDetails/widget/items.dart';
 import 'package:ride_on/view/busLayout/bus_layout.dart';
 import 'package:ride_on/viewmodel/controller/tour_controller.dart';
 
@@ -133,26 +134,28 @@ class _AllTripsState extends State<AllTrips> {
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
                                       ),
-                                      Flex(
-                                        direction: Axis.horizontal,
-                                        children: [
-                                          Text(
-                                            "Available Seat: ${data.availableSeat} ",
-                                            style: theme.textTheme.labelLarge!
-                                                .copyWith(
-                                              color:
-                                                  theme.colorScheme.onSurface,
-                                            ),
-                                          ),
-                                          const Gap(5),
-                                        ],
+                                      const Divider(),
+                                      const Gap(5),
+                                      Items(
+                                        icon: Icons.directions_bus,
+                                        title: "Layout:",
+                                        value: data.layout ?? '',
                                       ),
-                                      Text(
-                                        "₹${data.amount}",
-                                        style:
-                                            theme.textTheme.bodyLarge!.copyWith(
-                                          color: theme.colorScheme.onSurface,
-                                          fontWeight: FontWeight.w700,
+                                      Items(
+                                        icon: Icons.date_range,
+                                        title: "Start date:",
+                                        value: data.startDate ?? '',
+                                      ),
+                                      const Divider(),
+                                      Align(
+                                        alignment: Alignment.bottomRight,
+                                        child: Text(
+                                          "₹${data.amount}",
+                                          style: theme.textTheme.titleLarge!
+                                              .copyWith(
+                                            color: theme.colorScheme.primary,
+                                            fontWeight: FontWeight.w700,
+                                          ),
                                         ),
                                       ),
                                     ],

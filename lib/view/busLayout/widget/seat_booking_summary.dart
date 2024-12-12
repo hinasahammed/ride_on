@@ -7,7 +7,8 @@ import 'package:ride_on/view/busLayout/widget/seat_status.dart';
 import 'package:ride_on/viewmodel/controller/tour_controller.dart';
 
 class SeatBookingSummary extends StatelessWidget {
-  const SeatBookingSummary({super.key});
+  const SeatBookingSummary({super.key, required this.price});
+  final double price;
 
   @override
   Widget build(BuildContext context) {
@@ -47,13 +48,13 @@ class SeatBookingSummary extends StatelessWidget {
               direction: Axis.horizontal,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const CheckoutItems(
+                CheckoutItems(
                   title: "Ticket Price",
-                  value: "₹200",
+                  value: "₹$price",
                 ),
-                const CheckoutItems(
+                CheckoutItems(
                   title: "Total Price",
-                  value: "₹400",
+                  value: "₹${value.selectedSlot.length * price}",
                 ),
                 CheckoutItems(
                   title: "Selected Seat",

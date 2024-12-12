@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:ride_on/model/tour_model/datum.dart';
 import 'package:ride_on/repository/authRepository/auth_repo.dart';
 import 'package:ride_on/repository/storageRepository/api_storage_repo.dart';
-import 'package:ride_on/view/busLayout/bus_layout.dart';
+import 'package:ride_on/view/splash/splash_view.dart';
 import 'package:ride_on/viewmodel/controller/auth_controller.dart';
 import 'package:ride_on/viewmodel/controller/tour_controller.dart';
 
@@ -43,20 +42,17 @@ class _MyAppState extends State<MyApp> {
         )
       ],
       child: MaterialApp(
-        title: 'Ride On',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          scaffoldBackgroundColor: const Color(0xffDBDBDB),
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.blue,
+          title: 'Ride On',
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            scaffoldBackgroundColor: const Color(0xffDBDBDB),
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: Colors.blue,
+            ),
+            textTheme: GoogleFonts.robotoTextTheme(),
+            useMaterial3: true,
           ),
-          textTheme: GoogleFonts.robotoTextTheme(),
-          useMaterial3: true,
-        ),
-        home: BusLayout(
-          tourModel: Datum(),
-        ),
-      ),
+          home: const SplashView()),
     );
   }
 }

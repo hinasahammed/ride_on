@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -18,9 +19,10 @@ class AuthRepo implements AuthRepository {
         headers: {"Content-Type": "application/json"},
         body: user.toJson(),
       );
+      log(response.body);
       var data = jsonDecode(response.body);
       if (data['ResponseCode'] == 200) {
-          Utils().showToast("Login successfull");
+        Utils().showToast("Login successfull");
         if (context.mounted) {
           Navigator.pushReplacement(
               context,
@@ -29,8 +31,7 @@ class AuthRepo implements AuthRepository {
               ));
         }
       } else {
-          Utils().showToast("Invalid credential");
-       
+        Utils().showToast("Invalid credential");
       }
     } on FormatException {
       Utils().showToast("Something Went Wrong!");

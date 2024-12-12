@@ -48,7 +48,7 @@ class ApiStorageRepo implements StorageRepository {
 
   @override
   Future fetchBusLayout(String code) async {
-    var data = {"Code": "30184"};
+    var data = {"Code": code};
     try {
       final response = await http
           .post(

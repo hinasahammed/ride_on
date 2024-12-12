@@ -16,35 +16,28 @@ class Items extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Flex(
-        direction: Axis.horizontal,
-        children: [
-          Icon(
-            icon,
-            color: color ?? theme.colorScheme.primary,
+    return Flex(
+      direction: Axis.horizontal,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: const TextStyle(
+            fontWeight: FontWeight.w600,
           ),
-          const Gap(8),
-          Text(
-            title,
-            style: const TextStyle(
-              fontWeight: FontWeight.w600,
+        ),
+        const Gap(8),
+        Expanded(
+          child: Text(
+            value,
+            style: theme.textTheme.labelLarge!.copyWith(
+              color: theme.colorScheme.onSurface,
+              fontWeight: FontWeight.w500,
             ),
+            overflow: TextOverflow.ellipsis,
           ),
-          const Gap(8),
-          Expanded(
-            child: Text(
-              value,
-              style: theme.textTheme.labelLarge!.copyWith(
-                color: theme.colorScheme.onSurface,
-                fontWeight: FontWeight.w500,
-              ),
-              overflow: TextOverflow.ellipsis,
-            ),
-          )
-        ],
-      ),
+        )
+      ],
     );
   }
 }

@@ -68,23 +68,19 @@ class _BusLayoutState extends State<BusLayout> {
                           } else {
                             return SizedBox(
                               width: size.width,
-                              child: ListView.builder(
-                                itemCount: snapshot.data!.data!.maxRow,
-                                padding: const EdgeInsets.all(16),
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemBuilder: (context, mainIndex) {
-                                  final data = snapshot.data!.data!;
-                                  return Center(
-                                    child: SizedBox(
-                                      height: 50,
-                                      width: size.width,
-                                      child: ListView.builder(
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Column(
+                                  children: List.generate(
+                                    snapshot.data!.data!.maxRow!,
+                                    (mainIndex) {
+                                      final data = snapshot.data!.data!;
+                                      return SizedBox(
+                                        height: 50,
+                                        child: ListView.builder(
                                           itemCount: data.maxCol!,
                                           shrinkWrap: true,
                                           scrollDirection: Axis.horizontal,
-                                          physics:
-                                              const NeverScrollableScrollPhysics(),
                                           itemBuilder: (context, index) {
                                             final seat = data.slot!
                                                 .where(
@@ -97,16 +93,7 @@ class _BusLayoutState extends State<BusLayout> {
                                                 .toList();
                                             Slot seatModel = Slot();
                                             if (seat.isNotEmpty) {
-                                              seatModel = seat
-                                                  .where(
-                                                    (element) =>
-                                                        element.rowNo ==
-                                                            mainIndex + 1 &&
-                                                        element.colNo ==
-                                                            index + 1,
-                                                  )
-                                                  .toList()
-                                                  .first;
+                                              seatModel = seat.first;
                                             }
                                             return seat.isEmpty
                                                 ? Gap(size.width * .15)
@@ -115,10 +102,10 @@ class _BusLayoutState extends State<BusLayout> {
                                                             child) =>
                                                         GestureDetector(
                                                       onTap: () {
-                                                        if (seatModel.reservationCode == 0 ||
+                                                        if (seatModel.reservationCode == 0 &&
                                                             seatModel
                                                                     .blockingCount ==
-                                                                0 ||
+                                                                0 &&
                                                             seatModel
                                                                     .onProgressTicketCode ==
                                                                 0) {
@@ -140,29 +127,38 @@ class _BusLayoutState extends State<BusLayout> {
                                                                   .all(8.0),
                                                           decoration:
                                                               BoxDecoration(
-                                                                  borderRadius:
-                                                                      BorderRadius.circular(
-                                                                          15),
-                                                                  border: Border.all(
-                                                                      color: theme
-                                                                          .colorScheme
-                                                                          .primary),
-                                                                  color: seatModel.reservationCode != 0 ||
-                                                                          seatModel.blockingCount !=
-                                                                              0 ||
-                                                                          seatModel.onProgressTicketCode !=
-                                                                              0
-                                                                      ? theme
-                                                                          .colorScheme
-                                                                          .primaryContainer
-                                                                      : value.selectedSlot.contains(
-                                                                              seatModel)
-                                                                          ? theme
-                                                                              .colorScheme
-                                                                              .primary
-                                                                          : theme
-                                                                              .colorScheme
-                                                                              .surface),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        15),
+                                                            border: Border.all(
+                                                              color: theme
+                                                                  .colorScheme
+                                                                  .primary,
+                                                            ),
+                                                            color: seatModel
+                                                                            .reservationCode !=
+                                                                        0 ||
+                                                                    seatModel
+                                                                            .blockingCount !=
+                                                                        0 ||
+                                                                    seatModel
+                                                                            .onProgressTicketCode !=
+                                                                        0
+                                                                ? theme
+                                                                    .colorScheme
+                                                                    .primaryContainer
+                                                                : value
+                                                                        .selectedSlot
+                                                                        .contains(
+                                                                            seatModel)
+                                                                    ? theme
+                                                                        .colorScheme
+                                                                        .primary
+                                                                    : theme
+                                                                        .colorScheme
+                                                                        .surface,
+                                                          ),
                                                           child: Assets
                                                               .icons.busSeat
                                                               .image(
@@ -193,10 +189,12 @@ class _BusLayoutState extends State<BusLayout> {
                                                       ),
                                                     ),
                                                   );
-                                          }),
-                                    ),
-                                  );
-                                },
+                                          },
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
                               ),
                             );
                           }
@@ -208,7 +206,9 @@ class _BusLayoutState extends State<BusLayout> {
               ),
             ),
           ),
-          const SeatBookingSummary(),
+          SeatBookingSummary(
+            price: double.parse(widget.tourModel.amount.toString()),
+          ),
         ],
       ),
     );

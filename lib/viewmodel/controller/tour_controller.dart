@@ -31,7 +31,7 @@ class TourController extends ChangeNotifier {
 
   Future<BusLayoutModel?> fetchBusLAyout(
       BuildContext context, String code) async {
-    var data = await storageRepository.fetchBusLayout("30184");
+    var data = await storageRepository.fetchBusLayout(code);
     return data;
   }
 }
