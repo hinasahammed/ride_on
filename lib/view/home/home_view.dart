@@ -36,6 +36,10 @@ class _HomeViewState extends State<HomeView> {
     final homeController = Provider.of<TourController>(context, listen: false);
     final size = MediaQuery.sizeOf(context);
     return Scaffold(
+      // appBar: AppBar(
+      //   leading: Assets.images.rideOnLogo.image(),
+      //   title: const Text("RideOn"),
+      // ),
       body: RefreshIndicator(
         onRefresh: () {
           return refreshData(context);

@@ -55,6 +55,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/bus.png
   AssetGenImage get bus => const AssetGenImage('assets/images/bus.png');
 
+  /// File path: assets/images/bus_ongoing.json
+  String get busOngoing => 'assets/images/bus_ongoing.json';
+
   /// File path: assets/images/login.png
   AssetGenImage get login => const AssetGenImage('assets/images/login.png');
 
@@ -77,6 +80,7 @@ class $AssetsImagesGen {
         bg8,
         bg9,
         bus,
+        busOngoing,
         login,
         noItemFound,
         rideOnLogo

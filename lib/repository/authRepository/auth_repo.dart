@@ -8,7 +8,6 @@ import 'package:ride_on/res/appUrl/app_url.dart';
 import 'package:ride_on/res/utils/utils.dart';
 import 'package:ride_on/view/customNavigation/custom_navigation.dart';
 
-
 class AuthRepo implements AuthRepository {
   @override
   Future login(BuildContext context, User user) async {
@@ -21,7 +20,7 @@ class AuthRepo implements AuthRepository {
       var data = jsonDecode(response.body);
       if (data['ResponseCode'] == 200) {
         if (context.mounted) {
-          Utils().showToast(context, "Login successfully");
+          Utils().showToast("Login successfully");
           Navigator.pushReplacement(
               context,
               MaterialPageRoute(
@@ -30,12 +29,12 @@ class AuthRepo implements AuthRepository {
         }
       } else {
         if (context.mounted) {
-          Utils().showToast(context, "Invalid credential");
+          Utils().showToast("Invalid credential");
         }
       }
     } catch (e) {
       if (context.mounted) {
-        Utils().showToast(context, e.toString());
+        Utils().showToast(e.toString());
       }
     }
   }
