@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:ride_on/model/user/user.dart';
@@ -20,7 +21,7 @@ class AuthRepo implements AuthRepository {
       var data = jsonDecode(response.body);
       if (data['ResponseCode'] == 200) {
         if (context.mounted) {
-          Utils().showToast("Login successfully");
+          Utils().showToast("Login successfull");
           Navigator.pushReplacement(
               context,
               MaterialPageRoute(
@@ -32,6 +33,10 @@ class AuthRepo implements AuthRepository {
           Utils().showToast("Invalid credential");
         }
       }
+    } on FormatException {
+      Utils().showToast("Something Went Wrong!");
+    } on SocketException {
+      Utils().showToast("No Internet");
     } catch (e) {
       if (context.mounted) {
         Utils().showToast(e.toString());
