@@ -20,8 +20,8 @@ class AuthRepo implements AuthRepository {
       );
       var data = jsonDecode(response.body);
       if (data['ResponseCode'] == 200) {
-        if (context.mounted) {
           Utils().showToast("Login successfull");
+        if (context.mounted) {
           Navigator.pushReplacement(
               context,
               MaterialPageRoute(
@@ -29,9 +29,8 @@ class AuthRepo implements AuthRepository {
               ));
         }
       } else {
-        if (context.mounted) {
           Utils().showToast("Invalid credential");
-        }
+       
       }
     } on FormatException {
       Utils().showToast("Something Went Wrong!");
