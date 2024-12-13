@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 import 'package:ride_on/res/components/common/custom_button.dart';
+import 'package:ride_on/res/utils/utils.dart';
 import 'package:ride_on/view/busLayout/widget/checkout_items.dart';
 import 'package:ride_on/view/busLayout/widget/seat_status.dart';
-import 'package:ride_on/viewmodel/controller/tour_controller.dart';
+import 'package:ride_on/viewmodel/provider/tour_controller.dart';
 
 class SeatBookingSummary extends StatelessWidget {
   const SeatBookingSummary({super.key, required this.price});
@@ -13,7 +14,7 @@ class SeatBookingSummary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Consumer<TourController>(
+    return Consumer<TourViewmodel>(
       builder: (context, value, child) => Container(
         padding: const EdgeInsets.all(16),
         width: double.infinity,
@@ -68,7 +69,9 @@ class SeatBookingSummary extends StatelessWidget {
               width: double.infinity,
               height: 50,
               child: CustomButton(
-                onPressed: () {},
+                onPressed: () {
+                  Utils().showBookinSuccess(context);
+                },
                 btnText: "Book Now",
               ),
             )

@@ -74,4 +74,43 @@ class ApiStorageRepo implements StorageRepository {
       log(e.toString());
     }
   }
+
+  @override
+  Future<TourModel?> fetchTripTesting() async {
+    try {
+      var data = {
+        "Layout": "",
+        "Name": "",
+        "FileNo": "",
+        "StartDate": "",
+        "EndDate": "",
+        "BoardingPoint": ""
+      };
+      final response = await http
+          .post(
+            Uri.parse(AppUrl.tourApi),
+            headers: {"Content-Type": "application/json"},
+            body: jsonEncode(data),
+          )
+          .timeout(const Duration(seconds: 30));
+      var res = jsonDecode(response.body);
+      log(response.statusCode.toString());
+      log("from response${res['ResponseCode']}");
+      if (res['ResponseCode'] == 200) {
+        var value = TourModel.fromJson(jsonDecode(response.body));
+        return value;
+      } else {
+        return TourModel();
+      }
+    } on http.ClientException catch (e) {
+      log("Http client ${e.toString()}");
+    } on FormatException {
+      Utils().showToast("Something Went Wrong!");
+    } on SocketException {
+      Utils().showToast("No Internet");
+    } catch (e) {
+      log(e.toString());
+    }
+    return null;
+  }
 }

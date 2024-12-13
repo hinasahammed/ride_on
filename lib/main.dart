@@ -4,15 +4,21 @@ import 'package:provider/provider.dart';
 import 'package:ride_on/repository/authRepository/auth_repo.dart';
 import 'package:ride_on/repository/storageRepository/api_storage_repo.dart';
 import 'package:ride_on/view/splash/splash_view.dart';
-import 'package:ride_on/viewmodel/controller/auth_controller.dart';
-import 'package:ride_on/viewmodel/controller/tour_controller.dart';
+import 'package:ride_on/viewmodel/provider/auth_controller.dart';
+import 'package:ride_on/viewmodel/provider/tour_controller.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final pref = await SharedPreferences.getInstance();
+  runApp(MyApp(
+    preferences: pref,
+  ));
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+  const MyApp({super.key, required this.preferences});
+  final SharedPreferences preferences;
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -25,7 +31,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    _authRepo = AuthRepo();
+    _authRepo = AuthRepo(preferences: widget.preferences);
     _storageRepository = ApiStorageRepo();
   }
 
@@ -34,25 +40,26 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => AuthController(authRepo: _authRepo),
+          create: (context) => AuthViewmodel(authRepo: _authRepo),
         ),
         ChangeNotifierProvider(
           create: (context) =>
-              TourController(storageRepository: _storageRepository),
+              TourViewmodel(storageRepository: _storageRepository),
         )
       ],
       child: MaterialApp(
-          title: 'Ride On',
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            scaffoldBackgroundColor: const Color(0xffDBDBDB),
-            colorScheme: ColorScheme.fromSeed(
-              seedColor: Colors.blue,
-            ),
-            textTheme: GoogleFonts.robotoTextTheme(),
-            useMaterial3: true,
+        title: 'Ride On',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          scaffoldBackgroundColor: const Color(0xffDBDBDB),
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.blue,
           ),
-          home: const SplashView()),
+          textTheme: GoogleFonts.robotoTextTheme(),
+          useMaterial3: true,
+        ),
+        home: const SplashView(),
+      ),
     );
   }
 }

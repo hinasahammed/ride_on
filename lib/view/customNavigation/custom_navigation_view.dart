@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:ride_on/view/allTrips/all_trips.dart';
+import 'package:ride_on/view/allTrips/all_trips_view.dart';
+import 'package:ride_on/view/bookings/bokings_view.dart';
 import 'package:ride_on/view/home/home_view.dart';
+import 'package:ride_on/view/profile/profile_view.dart';
 
-class CustomNavigation extends StatefulWidget {
-  const CustomNavigation({super.key});
+class CustomNavigationView extends StatefulWidget {
+  const CustomNavigationView({super.key});
 
   @override
-  State<CustomNavigation> createState() => _CustomNavigationState();
+  State<CustomNavigationView> createState() => _CustomNavigationViewState();
 }
 
-class _CustomNavigationState extends State<CustomNavigation> {
+class _CustomNavigationViewState extends State<CustomNavigationView> {
   int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
@@ -18,12 +20,11 @@ class _CustomNavigationState extends State<CustomNavigation> {
     return Scaffold(
       body: IndexedStack(
         index: currentIndex,
-        children: [
-          const HomeView(),
-          const AllTrips(),
-          Container(
-            color: Colors.red,
-          ),
+        children: const [
+          HomeView(),
+          BookingsView(),
+          AllTripsView(),
+          ProfileView(),
         ],
       ),
       bottomNavigationBar: Container(
@@ -44,6 +45,10 @@ class _CustomNavigationState extends State<CustomNavigation> {
             GButton(
               icon: Icons.home_filled,
               text: 'Home',
+            ),
+            GButton(
+              icon: Icons.directions_bus_filled,
+              text: 'Bookings',
             ),
             GButton(
               icon: Icons.search,

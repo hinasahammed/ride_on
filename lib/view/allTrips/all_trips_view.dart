@@ -8,19 +8,19 @@ import 'package:ride_on/res/components/common/no_data_found.dart';
 import 'package:ride_on/res/components/common/trips_loading_horizontal.dart.dart';
 import 'package:ride_on/res/utils/constants/trip_images.dart';
 import 'package:ride_on/view/bookingDetails/widget/items.dart';
-import 'package:ride_on/view/busLayout/bus_layout.dart';
-import 'package:ride_on/viewmodel/controller/tour_controller.dart';
+import 'package:ride_on/view/busLayout/bus_layout_view.dart';
+import 'package:ride_on/viewmodel/provider/tour_controller.dart';
 
-class AllTrips extends StatefulWidget {
-  const AllTrips({super.key});
+class AllTripsView extends StatefulWidget {
+  const AllTripsView({super.key});
 
   @override
-  State<AllTrips> createState() => _AllTripsState();
+  State<AllTripsView> createState() => _AllTripsViewState();
 }
 
-class _AllTripsState extends State<AllTrips> {
+class _AllTripsViewState extends State<AllTripsView> {
   Future<void> refreshData(BuildContext context) async {
-    await Provider.of<TourController>(context, listen: false)
+    await Provider.of<TourViewmodel>(context, listen: false)
         .fetchTourList(context);
     setState(() {});
   }
@@ -35,7 +35,7 @@ class _AllTripsState extends State<AllTrips> {
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
     final theme = Theme.of(context);
-    final homeController = Provider.of<TourController>(context, listen: false);
+    final homeController = Provider.of<TourViewmodel>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         title: const Text("All Trips"),
@@ -99,7 +99,7 @@ class _AllTripsState extends State<AllTrips> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    BusLayout(tourModel: data),
+                                    BusLayoutView(tourModel: data),
                               ),
                             );
                           },
@@ -134,7 +134,6 @@ class _AllTripsState extends State<AllTrips> {
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
                                       ),
-                                      const Divider(),
                                       const Gap(5),
                                       Items(
                                         icon: Icons.directions_bus,
@@ -146,7 +145,6 @@ class _AllTripsState extends State<AllTrips> {
                                         title: "Start date:",
                                         value: data.startDate ?? '',
                                       ),
-                                      const Divider(),
                                       Align(
                                         alignment: Alignment.bottomRight,
                                         child: Text(

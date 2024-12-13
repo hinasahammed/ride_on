@@ -6,12 +6,13 @@ class CustomTextformfield extends StatelessWidget {
     this.controller,
     this.labelText,
     this.validator,
-    this.prefix,
+    this.prefix, this.onChanged,
   });
   final TextEditingController? controller;
   final String? labelText;
   final String? Function(String?)? validator;
   final Widget? prefix;
+  final void Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +20,7 @@ class CustomTextformfield extends StatelessWidget {
     return TextFormField(
       controller: controller,
       validator: validator,
+      onChanged: onChanged,
       decoration: InputDecoration(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),

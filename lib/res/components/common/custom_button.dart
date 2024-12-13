@@ -14,9 +14,10 @@ class CustomButton extends StatelessWidget {
     final theme = Theme.of(context);
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        backgroundColor: theme.colorScheme.primary,
-        foregroundColor: theme.colorScheme.onPrimary,
-      ),
+          backgroundColor: theme.colorScheme.primary,
+          foregroundColor: theme.colorScheme.onPrimary,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
       onPressed: onPressed,
       child: isloading
           ? CircularProgressIndicator(

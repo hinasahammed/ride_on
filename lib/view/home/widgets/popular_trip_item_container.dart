@@ -5,8 +5,8 @@ import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 import 'package:ride_on/res/components/common/trips_loading_horizontal.dart.dart';
 import 'package:ride_on/res/utils/constants/trip_images.dart';
-import 'package:ride_on/view/busLayout/bus_layout.dart';
-import 'package:ride_on/viewmodel/controller/tour_controller.dart';
+import 'package:ride_on/view/busLayout/bus_layout_view.dart';
+import 'package:ride_on/viewmodel/provider/tour_controller.dart';
 
 class PopularTripItemContainer extends StatefulWidget {
   const PopularTripItemContainer({super.key});
@@ -20,7 +20,7 @@ class _PopularTripItemContainerState extends State<PopularTripItemContainer> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final homeController = Provider.of<TourController>(context, listen: false);
+    final homeController = Provider.of<TourViewmodel>(context, listen: false);
     final size = MediaQuery.sizeOf(context);
 
     return FutureBuilder(
@@ -64,7 +64,7 @@ class _PopularTripItemContainerState extends State<PopularTripItemContainer> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => BusLayout(tourModel: data),
+                          builder: (context) => BusLayoutView(tourModel: data),
                         ),
                       );
                     },

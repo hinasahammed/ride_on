@@ -6,19 +6,19 @@ import 'package:ride_on/gen/assets.gen.dart';
 import 'package:ride_on/model/bus_layout_model/slot.dart';
 import 'package:ride_on/model/tour_model/datum.dart';
 import 'package:ride_on/view/busLayout/widget/seat_booking_summary.dart';
-import 'package:ride_on/viewmodel/controller/tour_controller.dart';
+import 'package:ride_on/viewmodel/provider/tour_controller.dart';
 
-class BusLayout extends StatefulWidget {
-  const BusLayout({super.key, required this.tourModel});
+class BusLayoutView extends StatefulWidget {
+  const BusLayoutView({super.key, required this.tourModel});
   final Datum tourModel;
 
   @override
-  State<BusLayout> createState() => _BusLayoutState();
+  State<BusLayoutView> createState() => _BusLayoutViewState();
 }
 
-class _BusLayoutState extends State<BusLayout> {
+class _BusLayoutViewState extends State<BusLayoutView> {
   Future<void> refreshData(BuildContext context) async {
-    await Provider.of<TourController>(context, listen: false)
+    await Provider.of<TourViewmodel>(context, listen: false)
         .fetchBusLAyout(context, widget.tourModel.code.toString());
     setState(() {});
   }
@@ -31,7 +31,7 @@ class _BusLayoutState extends State<BusLayout> {
 
   @override
   Widget build(BuildContext context) {
-    final tourController = Provider.of<TourController>(context, listen: false);
+    final tourController = Provider.of<TourViewmodel>(context, listen: false);
     final theme = Theme.of(context);
     final size = MediaQuery.sizeOf(context);
     return Scaffold(
@@ -97,7 +97,7 @@ class _BusLayoutState extends State<BusLayout> {
                                             }
                                             return seat.isEmpty
                                                 ? Gap(size.width * .15)
-                                                : Consumer<TourController>(
+                                                : Consumer<TourViewmodel>(
                                                     builder: (context, value,
                                                             child) =>
                                                         GestureDetector(
@@ -207,7 +207,7 @@ class _BusLayoutState extends State<BusLayout> {
             ),
           ),
           SeatBookingSummary(
-            price: double.parse(widget.tourModel.amount.toString()),
+            price: double.parse("${widget.tourModel.amount ?? '0.0'}"),
           ),
         ],
       ),

@@ -6,8 +6,8 @@ import 'package:provider/provider.dart';
 import 'package:ride_on/res/components/common/no_data_found.dart';
 import 'package:ride_on/res/components/common/trips_loading_horizontal.dart.dart';
 import 'package:ride_on/res/utils/constants/trip_images.dart';
-import 'package:ride_on/view/busLayout/bus_layout.dart';
-import 'package:ride_on/viewmodel/controller/tour_controller.dart';
+import 'package:ride_on/view/busLayout/bus_layout_view.dart';
+import 'package:ride_on/viewmodel/provider/tour_controller.dart';
 
 class AllTripsItemCard extends StatefulWidget {
   const AllTripsItemCard({super.key});
@@ -21,7 +21,7 @@ class _AllTripsItemCardState extends State<AllTripsItemCard> {
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
     final theme = Theme.of(context);
-    final homeController = Provider.of<TourController>(context, listen: false);
+    final homeController = Provider.of<TourViewmodel>(context, listen: false);
     return FutureBuilder(
       future: homeController.fetchTourList(context),
       builder: (context, snapshot) {
@@ -64,7 +64,7 @@ class _AllTripsItemCardState extends State<AllTripsItemCard> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => BusLayout(tourModel: data),
+                        builder: (context) => BusLayoutView(tourModel: data),
                       ),
                     );
                   },

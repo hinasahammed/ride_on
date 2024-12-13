@@ -8,9 +8,16 @@ import 'package:ride_on/repository/authRepository/auth_repository.dart';
 import 'package:http/http.dart' as http;
 import 'package:ride_on/res/appUrl/app_url.dart';
 import 'package:ride_on/res/utils/utils.dart';
-import 'package:ride_on/view/customNavigation/custom_navigation.dart';
+import 'package:ride_on/view/customNavigation/custom_navigation_view.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+const userLogin = "userLogedin";
 
 class AuthRepo implements AuthRepository {
+  AuthRepo({required this.preferences});
+
+  final SharedPreferences preferences;
+
   @override
   Future login(BuildContext context, User user) async {
     try {
@@ -22,12 +29,13 @@ class AuthRepo implements AuthRepository {
       log(response.body);
       var data = jsonDecode(response.body);
       if (data['ResponseCode'] == 200) {
+        await preferences.setBool(userLogin, true);
         Utils().showToast("Login successfull");
         if (context.mounted) {
           Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => const CustomNavigation(),
+                builder: (context) => const CustomNavigationView(),
               ));
         }
       } else {
@@ -42,5 +50,11 @@ class AuthRepo implements AuthRepository {
         Utils().showToast(e.toString());
       }
     }
+  }
+
+  @override
+  bool getUserLogedin() {
+    final val = preferences.getBool(userLogin) ?? false;
+    return val;
   }
 }

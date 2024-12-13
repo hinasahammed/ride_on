@@ -52,6 +52,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/bg9.jpg
   AssetGenImage get bg9 => const AssetGenImage('assets/images/bg9.jpg');
 
+  /// File path: assets/images/booking_success.json
+  String get bookingSuccess => 'assets/images/booking_success.json';
+
   /// File path: assets/images/bus.png
   AssetGenImage get bus => const AssetGenImage('assets/images/bus.png');
 
@@ -79,6 +82,7 @@ class $AssetsImagesGen {
         bg7,
         bg8,
         bg9,
+        bookingSuccess,
         bus,
         busOngoing,
         login,

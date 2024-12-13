@@ -5,7 +5,7 @@ import 'package:ride_on/gen/assets.gen.dart';
 import 'package:ride_on/model/user/user.dart';
 import 'package:ride_on/res/components/common/custom_button.dart';
 import 'package:ride_on/res/components/common/custom_textformfield.dart';
-import 'package:ride_on/viewmodel/controller/auth_controller.dart';
+import 'package:ride_on/viewmodel/provider/auth_controller.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -22,7 +22,7 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final loginController = Provider.of<AuthController>(context, listen: false);
+    final loginController = Provider.of<AuthViewmodel>(context, listen: false);
     return Scaffold(
         body: SafeArea(
       child: SingleChildScrollView(
@@ -75,7 +75,7 @@ class _LoginViewState extends State<LoginView> {
                 labelText: "Password",
               ),
               const Gap(40),
-              Consumer<AuthController>(
+              Consumer<AuthViewmodel>(
                 builder: (context, value, child) => SizedBox(
                   width: double.infinity,
                   height: 50,

@@ -6,10 +6,10 @@ import 'package:provider/provider.dart';
 import 'package:ride_on/res/components/common/trips_loading_horizontal.dart.dart';
 import 'package:ride_on/res/utils/constants/trip_images.dart';
 import 'package:ride_on/view/bookingDetails/widget/items.dart';
-import 'package:ride_on/view/busLayout/bus_layout.dart';
+import 'package:ride_on/view/busLayout/bus_layout_view.dart';
 import 'package:ride_on/view/home/widgets/home_banner.dart';
 import 'package:ride_on/view/home/widgets/popular_trips_title.dart';
-import 'package:ride_on/viewmodel/controller/tour_controller.dart';
+import 'package:ride_on/viewmodel/provider/tour_controller.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -26,7 +26,7 @@ class _HomeViewState extends State<HomeView> {
   }
 
   Future<void> refreshData(BuildContext context) async {
-    await Provider.of<TourController>(context, listen: false)
+    await Provider.of<TourViewmodel>(context, listen: false)
         .fetchTourList(context);
     setState(() {});
   }
@@ -34,7 +34,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final homeController = Provider.of<TourController>(context, listen: false);
+    final homeController = Provider.of<TourViewmodel>(context, listen: false);
     final size = MediaQuery.sizeOf(context);
     return Scaffold(
       // appBar: AppBar(
@@ -79,7 +79,7 @@ class _HomeViewState extends State<HomeView> {
                         );
                       } else {
                         return SizedBox(
-                          height: 400,
+                          height: 380,
                           child: ListView.builder(
                             itemCount: snapshot.data!.data!.length < 5
                                 ? snapshot.data!.data!.length
@@ -98,7 +98,7 @@ class _HomeViewState extends State<HomeView> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) =>
-                                            BusLayout(tourModel: data),
+                                            BusLayoutView(tourModel: data),
                                       ),
                                     );
                                   },
@@ -136,7 +136,6 @@ class _HomeViewState extends State<HomeView> {
                                                 maxLines: 2,
                                                 overflow: TextOverflow.ellipsis,
                                               ),
-                                              const Divider(),
                                               const Gap(5),
                                               Items(
                                                 icon: Icons.directions_bus,
@@ -148,7 +147,6 @@ class _HomeViewState extends State<HomeView> {
                                                 title: "Start date:",
                                                 value: data.startDate ?? '',
                                               ),
-                                              const Divider(),
                                               Align(
                                                 alignment:
                                                     Alignment.bottomRight,

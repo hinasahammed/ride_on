@@ -1,7 +1,7 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:ride_on/view/allTrips/all_trips.dart';
+import 'package:ride_on/view/allTrips/all_trips_view.dart';
 
 class HomeSearchOption extends StatelessWidget {
   const HomeSearchOption({super.key});
@@ -38,7 +38,7 @@ class HomeSearchOption extends StatelessWidget {
           ],
         ),
       ),
-      openBuilder: (context, action) => const AllTrips(),
+      openBuilder: (context, action) => const AllTripsView(),
     );
   }
 }
