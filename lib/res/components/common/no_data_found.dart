@@ -13,6 +13,7 @@ class NoDataFound extends StatelessWidget {
         children: [
           Lottie.asset(
             Assets.images.noItemFound,
+            frameRate: const FrameRate(30),
           ),
         ],
       ),

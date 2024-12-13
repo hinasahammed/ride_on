@@ -46,10 +46,17 @@ class AuthRepo implements AuthRepository {
     } on SocketException {
       Utils().showToast("No Internet");
     } catch (e) {
-      if (context.mounted) {
-        Utils().showToast(e.toString());
-      }
+      Utils().showToast(e.toString());
     }
+    // try {
+    //   var response = await Dio().post(
+    //     AppUrl.loginApi,
+    //     data: user.toJson(),
+    //   );
+    //   log(response.data);
+    // } catch (e) {
+    //   log(e.toString());
+    // }
   }
 
   @override
