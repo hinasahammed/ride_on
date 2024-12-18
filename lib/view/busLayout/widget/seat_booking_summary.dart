@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
-import 'package:ride_on/res/components/common/custom_button.dart';
+import 'package:ride_on/res/components/button/custom_button.dart';
 import 'package:ride_on/res/utils/utils.dart';
 import 'package:ride_on/view/busLayout/widget/checkout_items.dart';
 import 'package:ride_on/view/busLayout/widget/seat_status.dart';

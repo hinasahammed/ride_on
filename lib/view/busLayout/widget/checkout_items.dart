@@ -22,7 +22,7 @@ class CheckoutItems extends StatelessWidget {
         Text(
           value,
           style: theme.textTheme.labelLarge!.copyWith(
-            color: theme.colorScheme.onSurface.withOpacity(.6),
+            color: theme.colorScheme.onSurface.withValues(alpha: .6),
             fontWeight: FontWeight.w600,
           ),
         ),

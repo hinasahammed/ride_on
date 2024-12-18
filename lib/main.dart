@@ -51,9 +51,11 @@ class _MyAppState extends State<MyApp> {
         title: 'Ride On',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          scaffoldBackgroundColor: const Color(0xffDBDBDB),
+          scaffoldBackgroundColor: const Color(0xfff2f8fc),
           colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.blue,
+            seedColor: const Color(0xff064374),
+            primary: const Color(0xff064374),
+            onPrimary: const Color(0xffffffff),
           ),
           textTheme: GoogleFonts.robotoTextTheme(),
           useMaterial3: true,

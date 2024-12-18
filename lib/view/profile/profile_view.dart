@@ -25,7 +25,7 @@ class ProfileView extends StatelessWidget {
             Text(
               "+918237478978",
               style: theme.textTheme.bodyLarge!.copyWith(
-                color: theme.colorScheme.onSurface.withOpacity(.5),
+                color: theme.colorScheme.onSurface.withValues(alpha: .5),
               ),
             ),
             const Spacer(),

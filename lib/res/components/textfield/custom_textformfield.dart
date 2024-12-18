@@ -6,7 +6,8 @@ class CustomTextformfield extends StatelessWidget {
     this.controller,
     this.labelText,
     this.validator,
-    this.prefix, this.onChanged,
+    this.prefix,
+    this.onChanged,
   });
   final TextEditingController? controller;
   final String? labelText;
@@ -25,19 +26,19 @@ class CustomTextformfield extends StatelessWidget {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
           borderSide: BorderSide(
-            color: theme.colorScheme.primary.withOpacity(.3),
+            color: theme.colorScheme.primary.withValues(alpha: .3),
           ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
           borderSide: BorderSide(
-            color: theme.colorScheme.primary.withOpacity(.3),
+            color: theme.colorScheme.primary.withValues(alpha: .3),
           ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
           borderSide: BorderSide(
-            color: theme.colorScheme.primary.withOpacity(.3),
+            color: theme.colorScheme.primary.withValues(alpha: .3),
           ),
         ),
         labelText: labelText,

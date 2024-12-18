@@ -9,7 +9,7 @@ class TripsLoadingVertical extends StatelessWidget {
     final size = MediaQuery.sizeOf(context);
     return Shimmer.fromColors(
       baseColor: Colors.white54,
-      highlightColor: Colors.black.withOpacity(0.2),
+      highlightColor: Colors.black.withValues(alpha: 0.2),
       enabled: true,
       child: Container(
         width: size.width,

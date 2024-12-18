@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:ride_on/model/tour_model/datum.dart';
-import 'package:ride_on/res/components/common/custom_button.dart';
-import 'package:ride_on/view/bookingDetails/widget/items.dart';
+import 'package:ride_on/res/components/button/custom_button.dart';
+import 'package:ride_on/view/onDeprecation/bookingDetails/widget/items.dart';
 
 class BookingDetails extends StatelessWidget {
   const BookingDetails({super.key, required this.tourModel});

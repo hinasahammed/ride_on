@@ -22,7 +22,8 @@ class Items extends StatelessWidget {
       children: [
         Text(
           title,
-          style: const TextStyle(
+          style: theme.textTheme.labelLarge!.copyWith(
+            color: theme.colorScheme.onSurface,
             fontWeight: FontWeight.w600,
           ),
         ),

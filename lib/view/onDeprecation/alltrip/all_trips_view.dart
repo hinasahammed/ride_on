@@ -3,11 +3,11 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
-import 'package:ride_on/res/components/common/custom_textformfield.dart';
-import 'package:ride_on/res/components/common/no_data_found.dart';
-import 'package:ride_on/res/components/common/trips_loading_horizontal.dart.dart';
+import 'package:ride_on/res/components/textfield/custom_textformfield.dart';
+import 'package:ride_on/res/components/exceptionView/no_data_found.dart';
+import 'package:ride_on/res/components/loading/trips_loading_horizontal.dart.dart';
 import 'package:ride_on/res/utils/constants/trip_images.dart';
-import 'package:ride_on/view/bookingDetails/widget/items.dart';
+import 'package:ride_on/view/onDeprecation/bookingDetails/widget/items.dart';
 import 'package:ride_on/view/busLayout/bus_layout_view.dart';
 import 'package:ride_on/viewmodel/provider/tour_controller.dart';
 
@@ -50,7 +50,7 @@ class _AllTripsViewState extends State<AllTripsView> {
             CustomTextformfield(
               prefix: Icon(
                 Icons.search,
-                color: theme.colorScheme.onSurface.withOpacity(.7),
+                color: theme.colorScheme.onSurface.withValues(alpha: .7),
               ),
               labelText: "Search Destinations",
             ),

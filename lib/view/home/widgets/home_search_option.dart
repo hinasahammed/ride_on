@@ -1,7 +1,7 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:ride_on/view/allTrips/all_trips_view.dart';
+import 'package:ride_on/view/allTrips/all_trips_test.dart';
 
 class HomeSearchOption extends StatelessWidget {
   const HomeSearchOption({super.key});
@@ -18,7 +18,7 @@ class HomeSearchOption extends StatelessWidget {
         decoration: BoxDecoration(
             color: theme.colorScheme.surface,
             border: Border.all(
-              color: theme.colorScheme.primary.withOpacity(.3),
+              color: theme.colorScheme.primary.withValues(alpha: .3),
             ),
             borderRadius: BorderRadius.circular(15)),
         child: Flex(
@@ -26,19 +26,19 @@ class HomeSearchOption extends StatelessWidget {
           children: [
             Icon(
               Icons.search,
-              color: theme.colorScheme.onSurface.withOpacity(.7),
+              color: theme.colorScheme.onSurface.withValues(alpha: .7),
             ),
             const Gap(10),
             Text(
               "Search Destinations",
               style: theme.textTheme.bodyLarge!.copyWith(
-                color: theme.colorScheme.onSurface.withOpacity(.7),
+                color: theme.colorScheme.onSurface.withValues(alpha: .7),
               ),
             )
           ],
         ),
       ),
-      openBuilder: (context, action) => const AllTripsView(),
+      openBuilder: (context, action) => const AllTripsTest(),
     );
   }
 }

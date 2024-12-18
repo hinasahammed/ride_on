@@ -46,18 +46,23 @@ class _BusLayoutViewState extends State<BusLayoutView> {
                 return refreshData(context);
               },
               child: ListView(
+                padding: const EdgeInsets.all(16),
                 children: [
                   Center(
                     child: SizedBox(
-                      width: size.width * .95,
+                      width: size.width,
                       child: FutureBuilder(
                         future: tourController.fetchBusLAyout(
                             context, widget.tourModel.code.toString()),
                         builder: (context, snapshot) {
                           if (snapshot.connectionState ==
                               ConnectionState.waiting) {
-                            return const Center(
-                              child: CircularProgressIndicator(),
+                            return const SizedBox(
+                              height: 200,
+                              width: 500,
+                              child: Center(
+                                child: CircularProgressIndicator(),
+                              ),
                             );
                           }
                           if (!snapshot.hasData ||
@@ -71,16 +76,19 @@ class _BusLayoutViewState extends State<BusLayoutView> {
                               child: SingleChildScrollView(
                                 scrollDirection: Axis.horizontal,
                                 child: Column(
+                                  spacing: 10,
                                   children: List.generate(
                                     snapshot.data!.data!.maxRow!,
                                     (mainIndex) {
                                       final data = snapshot.data!.data!;
                                       return SizedBox(
                                         height: 50,
-                                        child: ListView.builder(
+                                        child: ListView.separated(
                                           itemCount: data.maxCol!,
                                           shrinkWrap: true,
                                           scrollDirection: Axis.horizontal,
+                                          separatorBuilder: (context, index) =>
+                                              const Gap(10),
                                           itemBuilder: (context, index) {
                                             final seat = data.slot!
                                                 .where(
@@ -108,6 +116,9 @@ class _BusLayoutViewState extends State<BusLayoutView> {
                                                                 0 &&
                                                             seatModel
                                                                     .onProgressTicketCode ==
+                                                                0 &&
+                                                            seatModel
+                                                                    .ticketDetailsCode ==
                                                                 0) {
                                                           tourController
                                                               .selectSeat(
@@ -115,6 +126,8 @@ class _BusLayoutViewState extends State<BusLayoutView> {
                                                         }
                                                       },
                                                       child: Card(
+                                                        margin: const EdgeInsets
+                                                            .all(0),
                                                         clipBehavior:
                                                             Clip.hardEdge,
                                                         child: Container(
@@ -122,20 +135,8 @@ class _BusLayoutViewState extends State<BusLayoutView> {
                                                               size.width * .15,
                                                           alignment:
                                                               Alignment.center,
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(8.0),
                                                           decoration:
                                                               BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        15),
-                                                            border: Border.all(
-                                                              color: theme
-                                                                  .colorScheme
-                                                                  .primary,
-                                                            ),
                                                             color: seatModel
                                                                             .reservationCode !=
                                                                         0 ||
@@ -144,6 +145,9 @@ class _BusLayoutViewState extends State<BusLayoutView> {
                                                                         0 ||
                                                                     seatModel
                                                                             .onProgressTicketCode !=
+                                                                        0 ||
+                                                                    seatModel
+                                                                            .ticketDetailsCode !=
                                                                         0
                                                                 ? theme
                                                                     .colorScheme
@@ -162,6 +166,7 @@ class _BusLayoutViewState extends State<BusLayoutView> {
                                                           child: Assets
                                                               .icons.busSeat
                                                               .image(
+                                                            width: 30,
                                                             color: seatModel
                                                                             .reservationCode !=
                                                                         0 ||

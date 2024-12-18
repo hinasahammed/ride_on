@@ -19,11 +19,19 @@ class TourViewmodel extends ChangeNotifier {
   final List<Datum?> _triplList = [];
   List<Datum?> get tripList => _triplList;
 
+  final List<Datum?> _filteredTripList = [];
+  List<Datum?> get filteredTripList => _filteredTripList;
+
   Status _status = Status.completed;
   Status get status => _status;
 
   void setStatus(Status status) {
     _status = status;
+    notifyListeners();
+  }
+
+  void clearSelectedSeat() {
+    _selectedSlot.clear();
     notifyListeners();
   }
 
@@ -64,8 +72,23 @@ class TourViewmodel extends ChangeNotifier {
       setStatus(Status.completed);
     } catch (e) {
       setStatus(Status.error);
-
       log(e.toString());
     }
+  }
+
+  void filterTrip(String searchText) {
+    setStatus(Status.loading);
+    var filtered = _triplList
+        .where(
+          (element) =>
+              element!.name!.toLowerCase().contains(searchText.toLowerCase()),
+        )
+        .toList();
+
+    _filteredTripList.clear();
+    _filteredTripList.addAll(filtered);
+
+    setStatus(Status.completed);
+    notifyListeners();
   }
 }

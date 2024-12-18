@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:lottie/lottie.dart';
 import 'package:ride_on/gen/assets.gen.dart';
-import 'package:ride_on/res/components/common/custom_button.dart';
+import 'package:ride_on/res/components/button/custom_button.dart';
 
 class BookingSuccessDailog extends StatelessWidget {
   const BookingSuccessDailog({super.key});

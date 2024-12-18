@@ -3,8 +3,8 @@ import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 import 'package:ride_on/gen/assets.gen.dart';
 import 'package:ride_on/model/user/user.dart';
-import 'package:ride_on/res/components/common/custom_button.dart';
-import 'package:ride_on/res/components/common/custom_textformfield.dart';
+import 'package:ride_on/res/components/button/custom_button.dart';
+import 'package:ride_on/res/components/textfield/custom_textformfield.dart';
 import 'package:ride_on/viewmodel/provider/auth_controller.dart';
 
 class LoginView extends StatefulWidget {
