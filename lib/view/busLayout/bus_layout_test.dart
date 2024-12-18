@@ -63,7 +63,7 @@ class _BusLayoutTestState extends State<BusLayoutTest> {
                         child: switch (value.status) {
                       Status.loading => const CircularProgressIndicator(),
                       Status.error => const Text("No layout found"),
-                      Status.completed => Container(
+                      Status.completed =>  Container(
                           width: size.width,
                           padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
@@ -76,7 +76,7 @@ class _BusLayoutTestState extends State<BusLayoutTest> {
                           child: Column(
                             spacing: 10,
                             children: List.generate(
-                              value.busLayout.maxRow!,
+                              value.busLayout.maxRow??0,
                               (mainIndex) {
                                 final data = value.busLayout;
                                 return SizedBox(
