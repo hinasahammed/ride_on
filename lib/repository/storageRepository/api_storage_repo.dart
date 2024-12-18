@@ -47,7 +47,7 @@ class ApiStorageRepo implements StorageRepository {
   }
 
   @override
-  Future fetchBusLayout(String code) async {
+  Future<BusLayoutModel?> fetchBusLayout(String code) async {
     var data = {"Code": code};
     try {
       final response = await http
@@ -73,6 +73,7 @@ class ApiStorageRepo implements StorageRepository {
     } catch (e) {
       log(e.toString());
     }
+    return null;
   }
 
   @override
@@ -102,8 +103,6 @@ class ApiStorageRepo implements StorageRepository {
       } else {
         return TourModel();
       }
-    } on http.ClientException catch (e) {
-      log("Http client ${e.toString()}");
     } on FormatException {
       Utils().showToast("Something Went Wrong!");
     } on SocketException {

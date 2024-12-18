@@ -11,3 +11,13 @@ List<String> tripImages = [
   Assets.images.bg8.path,
   Assets.images.bg9.path,
 ];
+
+List<String> busImages = [
+  Assets.images.bus1.path,
+  Assets.images.bus2.path,
+  Assets.images.bus3.path,
+  Assets.images.bus4.path,
+  Assets.images.bus5.path,
+  Assets.images.bus6.path,
+  Assets.images.bus7.path,
+];

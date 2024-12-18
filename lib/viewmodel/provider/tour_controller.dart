@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:ride_on/data/response/status.dart';
 import 'package:ride_on/model/bus_layout_model/bus_layout_model.dart';
+import 'package:ride_on/model/bus_layout_model/data.dart';
 import 'package:ride_on/model/bus_layout_model/slot.dart';
 import 'package:ride_on/model/tour_model/datum.dart';
 import 'package:ride_on/model/tour_model/tour_model.dart';
@@ -25,6 +26,9 @@ class TourViewmodel extends ChangeNotifier {
   Status _status = Status.completed;
   Status get status => _status;
 
+  Data _buslayout = Data();
+  Data get busLayout => _buslayout;
+
   void setStatus(Status status) {
     _status = status;
     notifyListeners();
@@ -44,15 +48,17 @@ class TourViewmodel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<TourModel?> fetchTourList(BuildContext context) async {
-    var data = await storageRepository.fetchTourBooking();
-    return data;
-  }
-
-  Future<BusLayoutModel?> fetchBusLAyout(
-      BuildContext context, String code) async {
+  Future fetchBusLAyoutTesting(
+    BuildContext context,
+    String code,
+  ) async {
+    setStatus(Status.loading);
     var data = await storageRepository.fetchBusLayout(code);
-    return data;
+    if (data != null && data.data != null) {
+      _buslayout = data.data!;
+    }
+    setStatus(Status.completed);
+    notifyListeners();
   }
 
   Future tripTesting() async {
@@ -90,5 +96,17 @@ class TourViewmodel extends ChangeNotifier {
 
     setStatus(Status.completed);
     notifyListeners();
+  }
+
+  Future<BusLayoutModel?> fetchBusLAyout(
+      BuildContext context, String code) async {
+    var data = await storageRepository.fetchBusLayout(code);
+    return data;
+  }
+
+  //on deprecation
+  Future<TourModel?> fetchTourList(BuildContext context) async {
+    var data = await storageRepository.fetchTourBooking();
+    return data;
   }
 }

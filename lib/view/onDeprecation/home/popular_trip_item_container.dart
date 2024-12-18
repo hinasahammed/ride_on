@@ -5,7 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 import 'package:ride_on/res/components/loading/trips_loading_horizontal.dart.dart';
 import 'package:ride_on/res/utils/constants/trip_images.dart';
-import 'package:ride_on/view/busLayout/bus_layout_view.dart';
+import 'package:ride_on/view/busLayout/bus_layout_test.dart';
 import 'package:ride_on/viewmodel/provider/tour_controller.dart';
 
 class PopularTripItemContainer extends StatefulWidget {
@@ -64,7 +64,7 @@ class _PopularTripItemContainerState extends State<PopularTripItemContainer> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => BusLayoutView(tourModel: data),
+                          builder: (context) => BusLayoutTest(tourModel: data),
                         ),
                       );
                     },

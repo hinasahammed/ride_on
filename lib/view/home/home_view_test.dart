@@ -7,8 +7,8 @@ import 'package:ride_on/data/response/status.dart';
 import 'package:ride_on/res/components/exceptionView/no_data_found.dart';
 import 'package:ride_on/res/components/loading/trips_loading_horizontal.dart.dart';
 import 'package:ride_on/res/utils/constants/trip_images.dart';
+import 'package:ride_on/view/busLayout/bus_layout_test.dart';
 import 'package:ride_on/view/onDeprecation/bookingDetails/widget/items.dart';
-import 'package:ride_on/view/busLayout/bus_layout_view.dart';
 import 'package:ride_on/view/home/widgets/home_banner.dart';
 import 'package:ride_on/view/home/widgets/popular_trips_title.dart';
 import 'package:ride_on/viewmodel/provider/tour_controller.dart';
@@ -98,7 +98,7 @@ class _HomeViewTestState extends State<HomeViewTest> {
                                                 context,
                                                 MaterialPageRoute(
                                                   builder: (context) =>
-                                                      BusLayoutView(
+                                                      BusLayoutTest(
                                                           tourModel: data),
                                                 ),
                                               );
@@ -111,8 +111,8 @@ class _HomeViewTestState extends State<HomeViewTest> {
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   Image.asset(
-                                                    tripImages[Random().nextInt(
-                                                        tripImages.length - 1)],
+                                                    busImages[Random().nextInt(
+                                                        busImages.length - 1)],
                                                     height: 200,
                                                     width: double.infinity,
                                                     fit: BoxFit.cover,
@@ -159,24 +159,56 @@ class _HomeViewTestState extends State<HomeViewTest> {
                                                               data.startDate ??
                                                                   '',
                                                         ),
-                                                        Align(
-                                                          alignment: Alignment
-                                                              .bottomRight,
-                                                          child: Text(
-                                                            "₹${data.amount}",
-                                                            style: theme
-                                                                .textTheme
-                                                                .titleLarge!
-                                                                .copyWith(
-                                                              color: theme
-                                                                  .colorScheme
-                                                                  .primary,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w700,
+                                                        const Gap(5),
+                                                        Flex(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          direction:
+                                                              Axis.horizontal,
+                                                          children: [
+                                                            Text(
+                                                              "₹${data.amount}",
+                                                              style: theme
+                                                                  .textTheme
+                                                                  .bodyLarge!
+                                                                  .copyWith(
+                                                                color: theme
+                                                                    .colorScheme
+                                                                    .primary,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w700,
+                                                              ),
                                                             ),
-                                                          ),
-                                                        ),
+                                                            Container(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(6),
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: theme
+                                                                    .colorScheme
+                                                                    .primary,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            10),
+                                                              ),
+                                                              child: Text(
+                                                                "View Details",
+                                                                style: theme
+                                                                    .textTheme
+                                                                    .labelLarge!
+                                                                    .copyWith(
+                                                                  color: theme
+                                                                      .colorScheme
+                                                                      .onPrimary,
+                                                                ),
+                                                              ),
+                                                            )
+                                                          ],
+                                                        )
                                                       ],
                                                     ),
                                                   ),

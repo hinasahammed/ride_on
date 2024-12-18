@@ -58,6 +58,27 @@ class $AssetsImagesGen {
   /// File path: assets/images/bus.png
   AssetGenImage get bus => const AssetGenImage('assets/images/bus.png');
 
+  /// File path: assets/images/bus1.jpg
+  AssetGenImage get bus1 => const AssetGenImage('assets/images/bus1.jpg');
+
+  /// File path: assets/images/bus2.jpg
+  AssetGenImage get bus2 => const AssetGenImage('assets/images/bus2.jpg');
+
+  /// File path: assets/images/bus3.jpg
+  AssetGenImage get bus3 => const AssetGenImage('assets/images/bus3.jpg');
+
+  /// File path: assets/images/bus4.webp
+  AssetGenImage get bus4 => const AssetGenImage('assets/images/bus4.webp');
+
+  /// File path: assets/images/bus5.jpg
+  AssetGenImage get bus5 => const AssetGenImage('assets/images/bus5.jpg');
+
+  /// File path: assets/images/bus6.jpg
+  AssetGenImage get bus6 => const AssetGenImage('assets/images/bus6.jpg');
+
+  /// File path: assets/images/bus7.webp
+  AssetGenImage get bus7 => const AssetGenImage('assets/images/bus7.webp');
+
   /// File path: assets/images/bus_ongoing.json
   String get busOngoing => 'assets/images/bus_ongoing.json';
 
@@ -84,6 +105,13 @@ class $AssetsImagesGen {
         bg9,
         bookingSuccess,
         bus,
+        bus1,
+        bus2,
+        bus3,
+        bus4,
+        bus5,
+        bus6,
+        bus7,
         busOngoing,
         login,
         noItemFound,
