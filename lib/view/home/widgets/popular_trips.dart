@@ -17,145 +17,139 @@ class PopularTrips extends StatelessWidget {
     final size = MediaQuery.sizeOf(context);
     final theme = Theme.of(context);
     return Consumer<TourViewmodel>(
-      builder: (context, tour, child) => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Flex(
-          direction: Axis.vertical,
-          children: [
-            const PopularTripsTitle(),
-            const Gap(10),
-            switch (tour.status) {
-              Status.loading => ListView.separated(
-                  itemCount: 5,
-                  shrinkWrap: true,
-                  separatorBuilder: (context, index) => const Gap(10),
-                  itemBuilder: (context, index) => const ShimmerLoading(),
-                ),
-              Status.error => const Text("Something Went Wrong"),
-              Status.completed => tour.tripList.isEmpty
-                  ? const Center(
-                      child: NoDataFound(),
-                    )
-                  : SizedBox(
-                      height: 210,
-                      child: ListView.separated(
-                        itemCount: tour.tripList.length,
-                        shrinkWrap: true,
-                        padding: const EdgeInsets.only(bottom: 8),
-                        scrollDirection: Axis.horizontal,
-                        separatorBuilder: (context, index) => const Gap(10),
-                        itemBuilder: (context, index) {
-                          var data = tour.tripList[index];
-                          return data == null
-                              ? const Text("No data found")
-                              : Card(
-                                  margin: const EdgeInsets.all(0),
-                                  clipBehavior: Clip.hardEdge,
-                                  elevation: 2,
-                                  child: InkWell(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              SeatLayoutView(tourModel: data),
+      builder: (context, tour, child) => Flex(
+        direction: Axis.vertical,
+        children: [
+          const PopularTripsTitle(),
+          const Gap(10),
+          switch (tour.status) {
+            Status.loading => ListView.separated(
+                itemCount: 5,
+                shrinkWrap: true,
+                separatorBuilder: (context, index) => const Gap(10),
+                itemBuilder: (context, index) => const ShimmerLoading(),
+              ),
+            Status.error => const Text("Something Went Wrong"),
+            Status.completed => tour.tripList.isEmpty
+                ? const Center(
+                    child: NoDataFound(),
+                  )
+                : SizedBox(
+                    height: 210,
+                    child: ListView.separated(
+                      itemCount: tour.tripList.length,
+                      shrinkWrap: true,
+                      padding: const EdgeInsets.only(bottom: 8),
+                      scrollDirection: Axis.horizontal,
+                      separatorBuilder: (context, index) => const Gap(10),
+                      itemBuilder: (context, index) {
+                        var data = tour.tripList[index];
+                        return data == null
+                            ? const Text("No data found")
+                            : Card(
+                                margin: const EdgeInsets.all(0),
+                                clipBehavior: Clip.hardEdge,
+                                elevation: 2,
+                                child: InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            SeatLayoutView(tourModel: data),
+                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.all(8),
+                                    width: size.width * .8,
+                                    child: Flex(
+                                      direction: Axis.vertical,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        // Image.asset(
+                                        //   busImages[Random().nextInt(
+                                        //       busImages.length - 1)],
+                                        //   height: 200,
+                                        //   width: double.infinity,
+                                        //   fit: BoxFit.cover,
+                                        // ),
+                                        // const Gap(5),
+                                        Text(
+                                          data.name ?? '',
+                                          style: theme.textTheme.bodyLarge!
+                                              .copyWith(
+                                            color: theme.colorScheme.onSurface,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
                                         ),
-                                      );
-                                    },
-                                    child: Container(
-                                      padding: const EdgeInsets.all(8),
-                                      width: size.width * .8,
-                                      child: Flex(
-                                        direction: Axis.vertical,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          // Image.asset(
-                                          //   busImages[Random().nextInt(
-                                          //       busImages.length - 1)],
-                                          //   height: 200,
-                                          //   width: double.infinity,
-                                          //   fit: BoxFit.cover,
-                                          // ),
-                                          // const Gap(5),
-                                          Text(
-                                            data.name ?? '',
-                                            style: theme.textTheme.bodyLarge!
-                                                .copyWith(
-                                              color:
-                                                  theme.colorScheme.onSurface,
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                            maxLines: 2,
-                                            overflow: TextOverflow.ellipsis,
+                                        const Gap(5),
+                                        Text(
+                                          data.layout ?? '',
+                                          style: theme.textTheme.labelLarge!
+                                              .copyWith(
+                                            color: theme.colorScheme.onSurface
+                                                .withValues(alpha: .6),
+                                            fontWeight: FontWeight.w500,
                                           ),
-                                          const Gap(5),
-                                          Text(
-                                            data.layout ?? '',
-                                            style: theme.textTheme.labelLarge!
-                                                .copyWith(
-                                              color: theme.colorScheme.onSurface
-                                                  .withValues(alpha: .6),
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                          const Gap(10),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        const Gap(10),
 
-                                          DateAndSeat(
-                                            startDate: data.startDate ?? '',
-                                            availableSeat:
-                                                "${data.availableSeat ?? ''}",
-                                          ),
+                                        DateAndSeat(
+                                          startDate: data.startDate ?? '',
+                                          availableSeat:
+                                              "${data.availableSeat ?? ''}",
+                                        ),
 
-                                          const Gap(10),
-                                          Flex(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            direction: Axis.horizontal,
-                                            children: [
-                                              Text(
-                                                "₹${data.amount}",
+                                        const Gap(10),
+                                        Flex(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          direction: Axis.horizontal,
+                                          children: [
+                                            Text(
+                                              "₹${data.amount}",
+                                              style: theme.textTheme.bodyLarge!
+                                                  .copyWith(
+                                                color:
+                                                    theme.colorScheme.primary,
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                            ),
+                                            Container(
+                                              padding: const EdgeInsets.all(6),
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    theme.colorScheme.primary,
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                              ),
+                                              child: Text(
+                                                "Book Now",
                                                 style: theme
-                                                    .textTheme.bodyLarge!
+                                                    .textTheme.labelLarge!
                                                     .copyWith(
-                                                  color:
-                                                      theme.colorScheme.primary,
-                                                  fontWeight: FontWeight.w700,
+                                                  color: theme
+                                                      .colorScheme.onPrimary,
                                                 ),
                                               ),
-                                              Container(
-                                                padding:
-                                                    const EdgeInsets.all(6),
-                                                decoration: BoxDecoration(
-                                                  color:
-                                                      theme.colorScheme.primary,
-                                                  borderRadius:
-                                                      BorderRadius.circular(5),
-                                                ),
-                                                child: Text(
-                                                  "Book Now",
-                                                  style: theme
-                                                      .textTheme.labelLarge!
-                                                      .copyWith(
-                                                    color: theme
-                                                        .colorScheme.onPrimary,
-                                                  ),
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ],
-                                      ),
+                                            )
+                                          ],
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                );
-                        },
-                      ),
+                                ),
+                              );
+                      },
                     ),
-            }
-          ],
-        ),
+                  ),
+          }
+        ],
       ),
     );
   }
