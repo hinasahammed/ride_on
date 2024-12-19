@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:ride_on/view/allTrips/all_trips_test.dart';
+import 'package:ride_on/view/allTrips/all_trip_view.dart';
 import 'package:ride_on/view/bookings/bokings_view.dart';
-import 'package:ride_on/view/home/home_view_test.dart';
+import 'package:ride_on/view/home/home_view.dart';
 import 'package:ride_on/view/profile/profile_view.dart';
 
 class CustomNavigationView extends StatefulWidget {
@@ -21,9 +21,9 @@ class _CustomNavigationViewState extends State<CustomNavigationView> {
       body: IndexedStack(
         index: currentIndex,
         children: const [
-          HomeViewTest(),
+          HomeView(),
           BookingsView(),
-          AllTripsTest(),
+          AllTripsView(),
           ProfileView(),
         ],
       ),

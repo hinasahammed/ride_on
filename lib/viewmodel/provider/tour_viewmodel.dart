@@ -98,15 +98,18 @@ class TourViewmodel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<BusLayoutModel?> fetchBusLAyout(
-      BuildContext context, String code) async {
-    var data = await storageRepository.fetchBusLayout(code);
-    return data;
-  }
+  
+
+  
 
   //on deprecation
   Future<TourModel?> fetchTourList(BuildContext context) async {
     var data = await storageRepository.fetchTourBooking();
+    return data;
+  }
+  Future<BusLayoutModel?> fetchBusLAyout(
+      BuildContext context, String code) async {
+    var data = await storageRepository.fetchBusLayout(code);
     return data;
   }
 }

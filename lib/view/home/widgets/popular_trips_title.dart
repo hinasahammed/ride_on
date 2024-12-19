@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ride_on/view/allTrips/all_trips_test.dart';
+import 'package:ride_on/view/allTrips/all_trip_view.dart';
 
 class PopularTripsTitle extends StatelessWidget {
   const PopularTripsTitle({super.key});
@@ -23,7 +23,7 @@ class PopularTripsTitle extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const AllTripsTest(),
+                builder: (context) => const AllTripsView(),
               ),
             );
           },

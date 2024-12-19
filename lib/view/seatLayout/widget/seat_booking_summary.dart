@@ -3,9 +3,9 @@ import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 import 'package:ride_on/res/components/button/custom_button.dart';
 import 'package:ride_on/res/utils/utils.dart';
-import 'package:ride_on/view/busLayout/widget/checkout_items.dart';
-import 'package:ride_on/view/busLayout/widget/seat_status.dart';
-import 'package:ride_on/viewmodel/provider/tour_controller.dart';
+import 'package:ride_on/view/seatLayout/widget/checkout_items.dart';
+import 'package:ride_on/view/seatLayout/widget/seat_status.dart';
+import 'package:ride_on/viewmodel/provider/tour_viewmodel.dart';
 
 class SeatBookingSummary extends StatelessWidget {
   const SeatBookingSummary({super.key, required this.price});

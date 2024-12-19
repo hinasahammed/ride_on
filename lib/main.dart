@@ -4,8 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:ride_on/repository/authRepository/auth_repo.dart';
 import 'package:ride_on/repository/storageRepository/api_storage_repo.dart';
 import 'package:ride_on/view/splash/splash_view.dart';
-import 'package:ride_on/viewmodel/provider/auth_controller.dart';
-import 'package:ride_on/viewmodel/provider/tour_controller.dart';
+import 'package:ride_on/viewmodel/provider/auth_viewmodel.dart';
+import 'package:ride_on/viewmodel/provider/tour_viewmodel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
@@ -51,7 +51,7 @@ class _MyAppState extends State<MyApp> {
         title: 'Ride On',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          scaffoldBackgroundColor: const Color(0xfff2f8fc),
+          scaffoldBackgroundColor: const Color.fromARGB(255, 231, 231, 231),
           colorScheme: ColorScheme.fromSeed(
             seedColor: const Color(0xff064374),
             primary: const Color(0xff064374),

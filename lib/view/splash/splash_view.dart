@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:ride_on/gen/assets.gen.dart';
 import 'package:ride_on/view/customNavigation/custom_navigation_view.dart';
 import 'package:ride_on/view/login/login_view.dart';
-import 'package:ride_on/viewmodel/provider/auth_controller.dart';
+import 'package:ride_on/viewmodel/provider/auth_viewmodel.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
