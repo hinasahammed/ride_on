@@ -4,10 +4,12 @@ import 'package:provider/provider.dart';
 import 'package:ride_on/data/response/status.dart';
 import 'package:ride_on/res/components/exceptionView/no_data_found.dart';
 import 'package:ride_on/res/components/loading/shimmer_loading.dart';
+import 'package:ride_on/res/components/text/body_large_text.dart';
+import 'package:ride_on/res/components/text/label_large_text.dart';
 import 'package:ride_on/view/seatLayout/seat_layout_view.dart';
 import 'package:ride_on/view/home/widgets/date_and_seat.dart';
 import 'package:ride_on/view/home/widgets/popular_trips_title.dart';
-import 'package:ride_on/viewmodel/provider/tour_viewmodel.dart';
+import 'package:ride_on/viewmodel/provider/all_trips_viewmodel.dart';
 
 class PopularTrips extends StatelessWidget {
   const PopularTrips({super.key});
@@ -16,12 +18,12 @@ class PopularTrips extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
     final theme = Theme.of(context);
-    return Consumer<TourViewmodel>(
+    return Consumer<AllTripsViewmodel>(
       builder: (context, tour, child) => Flex(
+        spacing: 10,
         direction: Axis.vertical,
         children: [
           const PopularTripsTitle(),
-          const Gap(10),
           switch (tour.status) {
             Status.loading => ListView.separated(
                 itemCount: 5,
@@ -65,6 +67,7 @@ class PopularTrips extends StatelessWidget {
                                     width: size.width * .8,
                                     child: Flex(
                                       direction: Axis.vertical,
+                                      spacing: 5,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
@@ -86,7 +89,6 @@ class PopularTrips extends StatelessWidget {
                                           maxLines: 2,
                                           overflow: TextOverflow.ellipsis,
                                         ),
-                                        const Gap(5),
                                         Text(
                                           data.layout ?? '',
                                           style: theme.textTheme.labelLarge!
@@ -97,7 +99,6 @@ class PopularTrips extends StatelessWidget {
                                           ),
                                           overflow: TextOverflow.ellipsis,
                                         ),
-                                        const Gap(10),
 
                                         DateAndSeat(
                                           startDate: data.startDate ?? '',
@@ -105,20 +106,16 @@ class PopularTrips extends StatelessWidget {
                                               "${data.availableSeat ?? ''}",
                                         ),
 
-                                        const Gap(10),
                                         Flex(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           direction: Axis.horizontal,
                                           children: [
-                                            Text(
-                                              "₹${data.amount}",
-                                              style: theme.textTheme.bodyLarge!
-                                                  .copyWith(
-                                                color:
-                                                    theme.colorScheme.primary,
-                                                fontWeight: FontWeight.w700,
-                                              ),
+                                            BodyLargeText(
+                                              text: "₹${data.amount}",
+                                              textColor:
+                                                  theme.colorScheme.primary,
+                                              fontWeight: FontWeight.w700,
                                             ),
                                             Container(
                                               padding: const EdgeInsets.all(6),
@@ -128,14 +125,10 @@ class PopularTrips extends StatelessWidget {
                                                 borderRadius:
                                                     BorderRadius.circular(5),
                                               ),
-                                              child: Text(
-                                                "Book Now",
-                                                style: theme
-                                                    .textTheme.labelLarge!
-                                                    .copyWith(
-                                                  color: theme
-                                                      .colorScheme.onPrimary,
-                                                ),
+                                              child: LabelLargeText(
+                                                text: "Book now",
+                                                textColor:
+                                                    theme.colorScheme.onPrimary,
                                               ),
                                             )
                                           ],

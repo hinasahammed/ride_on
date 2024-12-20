@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ride_on/res/components/text/body_large_text.dart';
 import 'package:ride_on/view/allTrips/all_trip_view.dart';
 
 class PopularTripsTitle extends StatelessWidget {
@@ -6,17 +7,13 @@ class PopularTripsTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Flex(
       direction: Axis.horizontal,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          "Popular trips",
-          style: theme.textTheme.bodyLarge!.copyWith(
-            color: theme.colorScheme.onSurface,
-            fontWeight: FontWeight.bold,
-          ),
+        const BodyLargeText(
+          text: "Popular trips",
+          fontWeight: FontWeight.bold,
         ),
         TextButton(
           onPressed: () {

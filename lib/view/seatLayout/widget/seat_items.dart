@@ -3,7 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 import 'package:ride_on/gen/assets.gen.dart';
 import 'package:ride_on/model/bus_layout_model/slot.dart';
-import 'package:ride_on/viewmodel/provider/tour_viewmodel.dart';
+import 'package:ride_on/viewmodel/provider/seat_layout_viewmodel.dart';
 
 class SeatItems extends StatelessWidget {
   const SeatItems({super.key});
@@ -12,8 +12,8 @@ class SeatItems extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
     final theme = Theme.of(context);
-    final tourController = Provider.of<TourViewmodel>(context, listen: false);
-    return Consumer<TourViewmodel>(
+    final tourController = Provider.of<SeatLayoutViewmodel>(context, listen: false);
+    return Consumer<SeatLayoutViewmodel>(
       builder: (context, value, child) => Container(
         width: size.width,
         padding: const EdgeInsets.all(8),

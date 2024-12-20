@@ -1,6 +1,6 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
+import 'package:ride_on/res/components/text/body_large_text.dart';
 import 'package:ride_on/view/allTrips/all_trip_view.dart';
 
 class HomeSearchOption extends StatelessWidget {
@@ -22,19 +22,17 @@ class HomeSearchOption extends StatelessWidget {
             ),
             borderRadius: BorderRadius.circular(15)),
         child: Flex(
+          spacing: 10,
           direction: Axis.horizontal,
           children: [
             Icon(
               Icons.search,
               color: theme.colorScheme.onSurface.withValues(alpha: .7),
             ),
-            const Gap(10),
-            Text(
-              "Search Destinations",
-              style: theme.textTheme.bodyLarge!.copyWith(
-                color: theme.colorScheme.onSurface.withValues(alpha: .7),
-              ),
-            )
+            BodyLargeText(
+              text: "Search Destinations",
+              textColor: theme.colorScheme.onSurface.withValues(alpha: .7),
+            ),
           ],
         ),
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:ride_on/res/components/text/label_large_text.dart';
 
 class SeatStatus extends StatelessWidget {
   const SeatStatus({super.key, required this.color, required this.title});
@@ -23,12 +24,7 @@ class SeatStatus extends StatelessWidget {
           ),
         ),
         const Gap(5),
-        Text(
-          title,
-          style: theme.textTheme.labelLarge!.copyWith(
-            color: theme.colorScheme.onSurface,
-          ),
-        )
+        LabelLargeText(text: title),
       ],
     );
   }

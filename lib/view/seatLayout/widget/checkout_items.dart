@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ride_on/res/components/text/label_large_text.dart';
 
 class CheckoutItems extends StatelessWidget {
   const CheckoutItems({super.key, required this.title, required this.value});
@@ -12,19 +13,14 @@ class CheckoutItems extends StatelessWidget {
       direction: Axis.vertical,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          title,
-          style: theme.textTheme.labelLarge!.copyWith(
-            color: theme.colorScheme.onSurface,
-            fontWeight: FontWeight.w600,
-          ),
+        LabelLargeText(
+          text: title,
+          fontWeight: FontWeight.w600,
         ),
-        Text(
-          value,
-          style: theme.textTheme.labelLarge!.copyWith(
-            color: theme.colorScheme.onSurface.withValues(alpha: .6),
-            fontWeight: FontWeight.w600,
-          ),
+        LabelLargeText(
+          text: value,
+          textColor: theme.colorScheme.onSurface.withValues(alpha: .6),
+          fontWeight: FontWeight.w600,
         ),
       ],
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
+import 'package:ride_on/res/components/text/body_large_text.dart';
+import 'package:ride_on/res/components/text/label_large_text.dart';
 
 class OffersCard extends StatelessWidget {
   const OffersCard({super.key});
@@ -8,16 +9,13 @@ class OffersCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Column(
+      spacing: 10,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          "Offers",
-          style: theme.textTheme.bodyLarge!.copyWith(
-            color: theme.colorScheme.onSurface,
-            fontWeight: FontWeight.bold,
-          ),
+        const BodyLargeText(
+          text: "Offers",
+          fontWeight: FontWeight.bold,
         ),
-        const Gap(10),
         SizedBox(
           height: 150,
           child: SingleChildScrollView(
@@ -46,18 +44,14 @@ class OffersCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        "Save 50% on your next trip",
-                        style: theme.textTheme.bodyLarge!.copyWith(
-                          color: theme.colorScheme.surface,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      BodyLargeText(
+                        text: "Save 50% on your next trip",
+                        textColor: theme.colorScheme.surface,
+                        fontWeight: FontWeight.bold,
                       ),
-                      Text(
-                        "Valid till: 31 Dec",
-                        style: theme.textTheme.labelLarge!.copyWith(
-                          color: theme.colorScheme.surface,
-                        ),
+                      LabelLargeText(
+                        text: "Valid till: 31 Dec",
+                        textColor: theme.colorScheme.surface,
                       ),
                     ],
                   ),

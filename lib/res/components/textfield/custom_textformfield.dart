@@ -8,12 +8,14 @@ class CustomTextformfield extends StatelessWidget {
     this.validator,
     this.prefix,
     this.onChanged,
+    this.prefixText,
   });
   final TextEditingController? controller;
   final String? labelText;
   final String? Function(String?)? validator;
   final Widget? prefix;
   final void Function(String)? onChanged;
+  final String? prefixText;
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +47,7 @@ class CustomTextformfield extends StatelessWidget {
         filled: true,
         fillColor: theme.colorScheme.surface,
         prefixIcon: prefix,
+        prefixText: prefixText,
       ),
     );
   }

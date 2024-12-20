@@ -1,6 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
+import 'package:ride_on/res/components/text/body_large_text.dart';
 import 'package:ride_on/res/utils/constants/trip_images.dart';
 
 class CarousalCard extends StatelessWidget {
@@ -28,6 +28,7 @@ class CarousalCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
             ),
             child: Flex(
+              spacing: 5,
               direction: Axis.horizontal,
               children: [
                 Expanded(
@@ -35,12 +36,10 @@ class CarousalCard extends StatelessWidget {
                     direction: Axis.vertical,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        sliderList[index]['headline'],
-                        style: theme.textTheme.bodyLarge!.copyWith(
-                          color: theme.colorScheme.onPrimary,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      BodyLargeText(
+                        text: sliderList[index]['headline'],
+                        fontWeight: FontWeight.bold,
+                        textColor: theme.colorScheme.onPrimary,
                       ),
                       Text(
                         sliderList[index]['subHeadline'],
@@ -52,7 +51,6 @@ class CarousalCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                const Gap(5),
                 ClipRRect(
                   borderRadius: BorderRadius.circular(20),
                   child: Image.asset(
@@ -68,7 +66,7 @@ class CarousalCard extends StatelessWidget {
       options: CarouselOptions(
         height: 180,
         aspectRatio: 16 / 9,
-        viewportFraction: 0.85,
+        viewportFraction: 0.86,
         initialPage: 0,
         enableInfiniteScroll: true,
         reverse: false,

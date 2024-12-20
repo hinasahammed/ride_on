@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:ride_on/gen/assets.gen.dart';
 import 'package:ride_on/model/user/user.dart';
 import 'package:ride_on/res/components/button/custom_button.dart';
+import 'package:ride_on/res/components/text/body_large_text.dart';
+import 'package:ride_on/res/components/text/title_large_text.dart';
 import 'package:ride_on/res/components/textfield/custom_textformfield.dart';
 import 'package:ride_on/viewmodel/provider/auth_viewmodel.dart';
 
@@ -37,20 +39,15 @@ class _LoginViewState extends State<LoginView> {
                 width: double.infinity,
                 height: 400,
               ),
-              Text(
-                "Login to Your Account",
-                style: theme.textTheme.titleLarge!.copyWith(
-                  color: theme.colorScheme.primary,
-                  fontWeight: FontWeight.bold,
-                ),
+              TitleLargeText(
+                text: "Login to Your Account",
+                textColor: theme.colorScheme.primary,
+                fontWeight: FontWeight.bold,
               ),
               const Gap(10),
-              Text(
-                "Welcome Back, You have been missed!",
-                style: theme.textTheme.bodyLarge!.copyWith(
-                  color: theme.colorScheme.onSurface,
-                  fontWeight: FontWeight.w500,
-                ),
+              const BodyLargeText (
+                text: "Welcome Back, You have been missed!",
+                fontWeight: FontWeight.w500,
               ),
               const Gap(20),
               CustomTextformfield(

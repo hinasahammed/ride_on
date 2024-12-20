@@ -4,7 +4,7 @@ import 'package:ride_on/data/response/status.dart';
 import 'package:ride_on/model/tour_model/datum.dart';
 import 'package:ride_on/view/seatLayout/widget/seat_items.dart';
 import 'package:ride_on/view/seatLayout/widget/seat_booking_summary.dart';
-import 'package:ride_on/viewmodel/provider/tour_viewmodel.dart';
+import 'package:ride_on/viewmodel/provider/seat_layout_viewmodel.dart';
 
 class SeatLayoutView extends StatefulWidget {
   const SeatLayoutView({super.key, required this.tourModel});
@@ -17,10 +17,11 @@ class SeatLayoutView extends StatefulWidget {
 class _SeatLayoutViewState extends State<SeatLayoutView> {
   Future<void> refreshData(BuildContext context) async {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await Provider.of<TourViewmodel>(context, listen: false)
-          .fetchBusLAyoutTesting(context, widget.tourModel.code.toString());
+      await Provider.of<SeatLayoutViewmodel>(context, listen: false)
+          .fetchBusLayout(context, widget.tourModel.code.toString());
       if (context.mounted) {
-        Provider.of<TourViewmodel>(context, listen: false).clearSelectedSeat();
+        Provider.of<SeatLayoutViewmodel>(context, listen: false)
+            .clearSelectedSeat();
       }
     });
   }
@@ -33,7 +34,8 @@ class _SeatLayoutViewState extends State<SeatLayoutView> {
 
   @override
   Widget build(BuildContext context) {
-    final tourController = Provider.of<TourViewmodel>(context, listen: false);
+    final tourController =
+        Provider.of<SeatLayoutViewmodel>(context, listen: false);
     final theme = Theme.of(context);
     final size = MediaQuery.sizeOf(context);
     return PopScope(
@@ -65,7 +67,7 @@ class _SeatLayoutViewState extends State<SeatLayoutView> {
                 onRefresh: () {
                   return refreshData(context);
                 },
-                child: Consumer<TourViewmodel>(
+                child: Consumer<SeatLayoutViewmodel>(
                   builder: (context, value, child) => ListView(
                     padding: const EdgeInsets.all(16),
                     children: [

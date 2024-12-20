@@ -12,42 +12,6 @@ import 'package:ride_on/res/utils/utils.dart';
 
 class ApiStorageRepo implements StorageRepository {
   @override
-  Future fetchTourBooking() async {
-    try {
-      var data = {
-        "Layout": "",
-        "Name": "",
-        "FileNo": "",
-        "StartDate": "",
-        "EndDate": "",
-        "BoardingPoint": ""
-      };
-      final response = await http
-          .post(
-            Uri.parse(AppUrl.tourApi),
-            headers: {"Content-Type": "application/json"},
-            body: jsonEncode(data),
-          )
-          .timeout(const Duration(seconds: 30));
-      var res = jsonDecode(response.body);
-      log(response.statusCode.toString());
-      log("from response${res['ResponseCode']}");
-      if (res['ResponseCode'] == 200) {
-        var value = TourModel.fromJson(jsonDecode(response.body));
-        return value;
-      } else {
-        return TourModel();
-      }
-    } on FormatException {
-      Utils().showToast("Something Went Wrong!");
-    } on SocketException {
-      Utils().showToast("No Internet");
-    } catch (e) {
-      log(e.toString());
-    }
-  }
-
-  @override
   Future<BusLayoutModel?> fetchBusLayout(String code) async {
     var data = {"Code": code};
     try {
@@ -78,7 +42,7 @@ class ApiStorageRepo implements StorageRepository {
   }
 
   @override
-  Future<TourModel?> fetchTripTesting() async {
+  Future<TourModel?> fetchTrips() async {
     try {
       var data = {
         "Layout": "",

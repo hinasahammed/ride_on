@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ride_on/res/components/text/body_large_text.dart';
+import 'package:ride_on/res/components/text/title_large_text.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
@@ -15,18 +17,13 @@ class ProfileView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "Name",
-              style: theme.textTheme.titleLarge!.copyWith(
-                color: theme.colorScheme.onSurface,
-                fontWeight: FontWeight.w600,
-              ),
+            const TitleLargeText(
+              text: "Name",
+              fontWeight: FontWeight.w600,
             ),
-            Text(
-              "+918237478978",
-              style: theme.textTheme.bodyLarge!.copyWith(
-                color: theme.colorScheme.onSurface.withValues(alpha: .5),
-              ),
+            BodyLargeText(
+              text: "+918237478978",
+              textColor: theme.colorScheme.onSurface.withValues(alpha: .5),
             ),
             const Spacer(),
             Card(

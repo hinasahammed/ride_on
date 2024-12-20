@@ -4,8 +4,10 @@ import 'package:provider/provider.dart';
 import 'package:ride_on/repository/authRepository/auth_repo.dart';
 import 'package:ride_on/repository/storageRepository/api_storage_repo.dart';
 import 'package:ride_on/view/splash/splash_view.dart';
+import 'package:ride_on/viewmodel/provider/all_trips_viewmodel.dart';
 import 'package:ride_on/viewmodel/provider/auth_viewmodel.dart';
-import 'package:ride_on/viewmodel/provider/tour_viewmodel.dart';
+import 'package:ride_on/viewmodel/provider/seat_layout_viewmodel.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
@@ -43,9 +45,12 @@ class _MyAppState extends State<MyApp> {
           create: (context) => AuthViewmodel(authRepo: _authRepo),
         ),
         ChangeNotifierProvider(
-          create: (context) =>
-              TourViewmodel(storageRepository: _storageRepository),
-        )
+          create: (context) => SeatLayoutViewmodel(storageRepository: _storageRepository),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => AllTripsViewmodel(storageRepository: _storageRepository),
+        ),
+        
       ],
       child: MaterialApp(
         title: 'Ride On',

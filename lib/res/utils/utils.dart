@@ -4,6 +4,7 @@ import 'package:ride_on/res/components/booking_success_dailog.dart';
 
 class Utils {
   void showToast(String message) {
+    Fluttertoast.cancel();
     Fluttertoast.showToast(
       msg: message,
       toastLength: Toast.LENGTH_SHORT,

@@ -5,7 +5,7 @@ import 'package:ride_on/view/home/widgets/carousal_card.dart';
 import 'package:ride_on/view/home/widgets/home_search_option.dart';
 import 'package:ride_on/view/home/widgets/offers_card.dart';
 import 'package:ride_on/view/home/widgets/popular_trips.dart';
-import 'package:ride_on/viewmodel/provider/tour_viewmodel.dart';
+import 'package:ride_on/viewmodel/provider/all_trips_viewmodel.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -23,19 +23,21 @@ class _HomeViewState extends State<HomeView> {
 
   void fetch() async {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      var tourController = Provider.of<TourViewmodel>(context, listen: false);
-      tourController.tripTesting();
+      var tourController =
+          Provider.of<AllTripsViewmodel>(context, listen: false);
+      tourController.fetchAllTrips();
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final tourController = Provider.of<TourViewmodel>(context, listen: false);
+    final tourController =
+        Provider.of<AllTripsViewmodel>(context, listen: false);
     return Scaffold(
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () {
-            return tourController.tripTesting();
+            return tourController.fetchAllTrips();
           },
           child: ListView(
             padding: const EdgeInsets.all(16),

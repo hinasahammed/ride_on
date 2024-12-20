@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 import 'package:ride_on/data/response/status.dart';
+import 'package:ride_on/res/components/text/title_large_text.dart';
 import 'package:ride_on/res/components/textfield/custom_textformfield.dart';
 import 'package:ride_on/res/components/loading/shimmer_loading.dart';
 import 'package:ride_on/view/allTrips/widget/all_trips_items.dart';
 import 'package:ride_on/view/allTrips/widget/filtered_trip_items.dart';
-import 'package:ride_on/viewmodel/provider/tour_viewmodel.dart';
+import 'package:ride_on/viewmodel/provider/all_trips_viewmodel.dart';
 
 class AllTripsView extends StatefulWidget {
   const AllTripsView({super.key});
@@ -21,16 +22,17 @@ class _AllTripsViewState extends State<AllTripsView> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final tourViewmodel = Provider.of<TourViewmodel>(context, listen: false);
+    final tourViewmodel =
+        Provider.of<AllTripsViewmodel>(context, listen: false);
     return Scaffold(
         appBar: AppBar(
           title: const Text("All Trips"),
         ),
-        body: Consumer<TourViewmodel>(
+        body: Consumer<AllTripsViewmodel>(
           builder: (context, tour, child) {
             return RefreshIndicator(
               onRefresh: () {
-                return tourViewmodel.tripTesting();
+                return tourViewmodel.fetchAllTrips();
               },
               child: ListView(
                 padding: const EdgeInsets.all(16.0),
@@ -55,16 +57,12 @@ class _AllTripsViewState extends State<AllTripsView> {
                     Status.completed => searchController.text.isEmpty
                         ? const AllTripsItems()
                         : tour.filteredTripList.isEmpty
-                            ? SizedBox(
+                            ? const SizedBox(
                                 height: 200,
                                 width: double.infinity,
                                 child: Center(
-                                  child: Text(
-                                    "No Result Found!",
-                                    style: theme.textTheme.titleLarge!.copyWith(
-                                      color: theme.colorScheme.onSurface,
-                                    ),
-                                  ),
+                                  child:
+                                      TitleLargeText(text: "No Result Found!"),
                                 ),
                               )
                             : const FilteredTripItems(),
